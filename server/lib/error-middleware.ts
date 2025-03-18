@@ -15,9 +15,11 @@ export function errorMiddleware(
     res.status(401).json({ error: 'invalid access token' });
   } else {
     console.error(err);
-    res.status(500).json({
-      error: 'an unexpected error occurred',
-      message: err instanceof Error ? err.message : undefined,
-    });
+    res
+      .status(500)
+      .json({
+        error: 'an unexpected error occurred',
+        message: err instanceof Error ? err.message : undefined,
+      });
   }
 }

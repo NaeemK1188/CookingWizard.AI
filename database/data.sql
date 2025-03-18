@@ -10,7 +10,8 @@
 --      ('Build projects', false),
 --      ('Get a job', false);
 insert into "Users" ("username", "hashedPassword" )
-values ('guest', '22dffsxcccc@#');
+values ('guest', '22dffsxcccc@#'),
+       ('admin', '443221&**//)(8)9.');
 
 
 
@@ -39,4 +40,6 @@ Serve warm: Enjoy your simple yet delicious Tomato-Potato Rice Delight!' ),
 ½ tsp black pepper (optional)
 instructions:
 Add tomatoes: Toss in the chopped tomatoes, stirring occasionally. Cook until they soften and release their juices, creating a light sauce.
-Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.');
+Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.'),
+(2, 'lamb yogurt special', 'lamb and yogurt', 'stirring occasionally. Cook until they soften and release their juices, creating a light sauce.
+Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.' );
