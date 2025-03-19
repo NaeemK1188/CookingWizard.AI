@@ -35,27 +35,8 @@ const openai = new OpenAI({
 //   ]
 // });
 
-// // console.log(responseAI.choices[0].message.content);
-// const recipeResponse = responseAI.choices[0].message.content;
-// const target = "Recipe Title" // target string we are looking for
-// let titleIndex = -1; // if its not found
-// if (recipeResponse)
-// {
-//   for (let i = 0; i < recipeResponse.length; i++)
-//   {
-//     // (i, i + target.length) = (10, 10 + 12) = (10, 22) which accommodate the length of target
-//     if (recipeResponse.slice(i, i + target.length) === target)
-//     {
-//       console.log(`${target} is found at index ${i}`); // found at index 2
-//       titleIndex = i; // update the title index to be found
-//     }
-//   }
+// console.log(responseAI.choices[0].message.content);
 
-//   if (titleIndex === -1)
-//   {
-//     console.log('Recipe Title not found');
-//   }
-// }
 // -------------testing OpenAI ---------------------------
 
 const app = express();
@@ -85,6 +66,7 @@ app.post('/api/new-recipe', async (req, res, next) => {
       throw new ClientError(400, 'missing body content');
     }
 
+    // using prompt engineering to get the right response from AI
     const systemPrompt = `Act as a professional cooker, who creates recipes for average people at home
        from random ingredients they have. Extract for me the title of the recipe and instructions.
        Return the response as markdown with the title as the header, followed by Ingredients, and Instructions in sub-headers.`;
@@ -106,32 +88,18 @@ app.post('/api/new-recipe', async (req, res, next) => {
       ],
     });
 
-    // // extracting the result into JSON formate
-    // // res.json({recipeTitle:OpenAIResponse.choices[0].message.content});
+    // extracting the entire response from OpenAI
     const recipeResponse = OpenAIResponse.choices[0].message.content;
-    console.log(recipeResponse);
-    // const recipeResponse =
-    // '**Recipe Title:** Rustic Tomato, Onion, and Potato Bake\n\n**Ingredients:**\n- 1 medium onion\n- 3 medium tomatoes\n- 3 medium potatoes\n- 2 tablespoons olive oil\n- Salt and pepper to taste\n- 1 teaspoon dried oregano (optional)\n- 1 teaspoon garlic powder (optional)\n- Grated Parmesan cheese (optional for garnish)\n\n**Instructions:**\n\n1. **Preheat the Oven:** Preheat your oven to 400°F (200°C).\n\n2. **Prepare the Ingredients:** \n    - Peel the onion and slice it into thin rounds.\n    - Wash the tomatoes and potatoes thoroughly. Slice the tomatoes and potatoes into thin rounds as well.\n\n3. **Layer the Vegetables:**\n    - In a baking dish, begin layering by placing a layer of potato slices on the bottom, slightly overlapping them.\n    - Add a layer of onion slices over the potatoes, followed by a layer of tomato slices.\n    - Repeat the layering process until all the vegetables are used, finishing with a layer of tomatoes on top.\n\n4. **Season the Dish:**\n    - Drizzle the olive oil evenly over the layered vegetables.\n    - Sprinkle salt, pepper, dried oregano, and garlic powder (if using) over the top layer.\n\n5. **Bake the Dish:**\n    - Cover the baking dish with aluminum foil and place it in the preheated oven.\n    - Bake for approximately 40-45 minutes, or until the potatoes are tender when poked with a fork.\n\n6. **Finish and Serve:**\n    - Remove the foil and bake for an additional 10-15 minutes until the top layer is slightly crispy.\n    - If desired, sprinkle grated Parmesan cheese over the top for added flavor.\n    - Allow the dish to cool slightly before serving.\n\nEnjoy your rustic tomato, onion, and potato bake as a comforting main or side dish!';
-    // const title = recipeResponse?.match(/\*\*Recipe Title:\*\*\s(.*?)\\n/);
-    const title = recipeResponse?.match(/#\s(.*)/)?.[1];
-    res.json({ title, recipe: recipeResponse });
-    // const target = "Recipe";
-    // const titleIndex = -1;
-    // if (recipeResponse)
-    // {
-    //   for (let i = 0; i <= recipeResponse.length - target.length; i++)
-    //   {
-    //     if (recipeResponse.slice(i, i + target.length) === target)
-    //     {
-    //       console.log("**Recipe Title: is found");
-    //     }
+    console.log(recipeResponse); // output in server terminal
 
-    //   }
-    //   if (titleIndex === -1)
-    //   {
-    //     console.log("not found");
-    //   }
-    // }
+    // using regex(regular expression language) on a text
+    // const title = recipeResponse?.match(/\*\*Recipe Title:\*\*\s(.*?)\\n/);
+    // extracting title from the AI response
+    const title = recipeResponse?.match(/#\s(.*)/)?.[1]; // using regular expression to get everything after # and stops and first of \n.
+    // then we are extracting the second element of the array returned that is the title because ".match" returns the target and the result in one array
+    // output is json format
+    res.json({ title, recipe: recipeResponse }); // here we can put "title" instead "title:title"
+    // output in the third terminal where we are using httpie POST request
   } catch (error) {
     next(error);
   }
@@ -140,16 +108,10 @@ app.post('/api/new-recipe', async (req, res, next) => {
 // ---------------Display resulted recipes on Your Recipes----------------------------
 // list all recipes for one user or certain user after logging in and navigate to
 // your recipes
-// we dont put userId in api end point for security matter. it has to be in auth middleware
+// we don't put userId in api end point for security matter. it has to be in auth middleware
 // using req.user
 app.get('/api/recipes', async (req, res, next) => {
   try {
-    // const {userId} = req.user?.userId;
-    // the error of user not exists, is not being caught ?
-    // if(!userId || !Number.isInteger(+userId)) // if request is missing userId
-    // {
-    //   throw new ClientError(400, "No user Id was provided or the id provided is not an integer");
-    // }
     const sql = `select * from "Recipes"
                 where "userId" = $1;`;
     // after getting the response from the query
