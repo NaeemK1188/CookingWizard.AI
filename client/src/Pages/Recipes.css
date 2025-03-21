@@ -1,0 +1,20 @@
+.font-recipes {
+  font-size: xxx-large;
+  text-align: left;
+  margin-left: 50px;
+}
+
+.h3-recipes {
+  margin-left: 50px;
+}
+
+.add-margin-recipes {
+  margin-top: 15px;
+  margin-right: 90px;
+  cursor: pointer;
+}
+
+.menu-link-recipes {
+  color: inherit;
+  text-decoration: none;
+}

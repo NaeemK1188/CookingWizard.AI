@@ -1,0 +1,28 @@
+.font-color {
+  color: rgb(189, 187, 187);
+  margin-top: 50px;
+}
+
+.container-new-recipe {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100vh;
+}
+
+.request-container {
+  border-color: rgb(199, 87, 35);
+  border-width: 20px;
+  border-radius: 10px;
+}
+
+.add-margin {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.flex-dir {
+  flex-direction: column;
+  justify-content: space-between;
+  height: 95vh;
+}
