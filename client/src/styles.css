@@ -1,0 +1,637 @@
+/*            home page                                  */
+
+header {
+  background-image: url('/workspaces/CookingWizard.AI/client/public/Orange and Yellow Modern Illustrative Asian Cooking Class Google Classroom Header (2).png');
+  background-size: 1920px 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.ctrl-height-header {
+  line-height: 9;
+}
+
+.white-cir-user {
+  background-color: aliceblue;
+  border-radius: 50%;
+  height: 50px;
+  position: relative;
+  top: 24%;
+  line-height: 5;
+}
+
+.menu-icon {
+  margin: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.menu-drawer {
+  width: 4rem;
+  min-height: 100vh;
+  padding-top: 1rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45);
+  transition: width 0.2s ease-in-out;
+}
+
+/* applying both class like <div className="menu-drawer is-Open"> */
+.is-open {
+  width: 15rem;
+}
+
+.is-close {
+  width: 3rem;
+}
+
+.menu-heading {
+  margin: 1.5rem 0;
+  font-size: large;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.menu-items {
+  padding: 0;
+  overflow: hidden;
+}
+
+.menu-item {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  list-style-type: none;
+  background-color: rgb(255, 255, 255);
+}
+
+.menu-icon,
+.menu-item {
+  cursor: pointer;
+}
+
+.menu-heading,
+.menu-item {
+  padding-left: 1rem;
+}
+
+.menu-item:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.menu-link,
+.menu-link:hover {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  line-height: 60px;
+}
+
+.menu-link.active {
+  background-color: rgb(240, 240, 240);
+}
+
+.item-icon {
+  width: 4.1rem;
+  margin: 0.3rem;
+  display: inline-block;
+}
+
+.item-icon-resize-noodles {
+  width: 3rem;
+  margin: 0.3rem;
+  margin-right: 15px;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.btn-style {
+  background-color: orangered;
+  color: aliceblue;
+  border-color: aliceblue;
+  border-radius: 7px;
+  margin: 30px;
+  margin-top: 100px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.bg-img {
+  background-image: url('Black Minimalist Recipes Paper A4 Document.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 1000px;
+  position: relative;
+  background-color: rgb(221, 242, 223);
+}
+
+.cursor-click {
+  cursor: pointer;
+}
+
+.text-alignmnt {
+  text-align: center;
+}
+
+/* header {
+  background-color: rgb(43, 87, 218); */
+
+/* stays at the top */
+
+/* position: sticky;
+  top: 0; */
+
+/* the height of the header is fixed with using pixels */
+
+/* height: 87px; */
+
+/* so its above the body by pushing it toward us */
+
+/* z-index: 100;
+} */
+
+/* smaller screens first */
+
+/* .header-h1 {
+  color: white;
+  font-family: 'Proza Libre', serif;
+  font-weight: normal;
+  font-style: italic;
+  font-size: 35px; */
+
+/* the height starts from the top, so it increases from top to bottom */
+
+/* line-height: 70px;
+  cursor: pointer;
+  position: relative;
+} */
+
+/* .header-h1:active {
+  top: 3px;
+} */
+
+/* smaller screen, we remove h3 from flow */
+
+/* .header-h4 {
+  display: none;
+} */
+
+/* we don't have a ruleset for the cart icon on the header in small screen */
+
+/* removing margin because we have applied the flex properties in align-center ruleset */
+
+/* having 75% of its parent column-fifth */
+
+/* .mock-image {
+  width: 150px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.mock-image-align {
+  text-align: center;
+} */
+
+/* p {
+  font-size: medium;
+  font-family: 'Proza Libre', serif;
+  padding: 7px;
+}
+
+.body-h1 {
+  font-family: 'Proza Libre', serif;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.categories-homepage {
+  border: none;
+  font-family: 'Proza Libre', serif;
+  font-weight: normal;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.view-blur {
+  filter: blur(1px);
+  background-color: gray;
+}
+
+hr {
+  margin-top: -12px;
+} */
+
+/* affected on both small and large, but in media screen we can add more properties keeping the one here  */
+
+/* .align-contents-small-body {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+} */
+
+/* applying on properties on children like the image */
+
+/* .align-center-small-header { */
+
+/* justify-content center didn't work although it inherits from parent ? */
+
+/* text-align: end;
+  align-content: center;
+} */
+
+/* after calling the create function the styling is applied */
+
+/* .item-design {
+  background-color: aliceblue;
+  margin-top: 20px;
+  margin-right: 10px;
+  border: rgb(202, 201, 201) solid;
+  border-width: thin;
+  border-radius: 10px; */
+
+/* instead of using position: relative */
+
+/* we can use transform as property inside transition */
+
+/* applying transform for 0.3 seconds and ease */
+
+/* transition: transform 0.3s ease;
+} */
+
+/*
+.align-row {
+  margin-left: 10px;
+}
+
+.viewing {
+  display: none;
+}
+
+.number-listing {
+  font-family: 'Proza Libre', serif;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+.add-to-cart-btn {
+  background-color: rgb(255, 255, 3);
+  color: black;
+  font-family: 'Proza Libre', serif;
+  font-weight: normal;
+  font-size: smaller;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.add-to-cart-btn:active {
+  top: 2px;
+} */
+
+/*            home page                                  */
+
+/*            cart page                                  */
+
+/* .column-third-cart {
+  width: 100%;
+}
+
+.num-items-select {
+  width: 70px;
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.num-items-select-align {
+  text-align: center;
+  align-self: center;
+} */
+
+/* applied to parent column */
+
+/* .column-third-cart-align {
+
+  text-align: center;
+  height: 285px;
+}
+
+.p-col-third-1-cart {
+  padding: 40px;
+  position: relative;
+  bottom: 40px;
+}
+
+.p-col-third-2-cart {
+  color: rgb(0, 42, 255);
+  padding: 50px;
+  line-height: 25px;
+} */
+
+/* because the column 2 position is 0 */
+
+/* #column2 {
+  order: -1;
+}
+
+#column1 {
+  margin-top: -40px;
+}
+
+#column3 {
+  margin-bottom: 100px;
+  height: 0;
+}
+
+.align-summary {
+  display: flex;
+  height: 40px;
+}
+
+.summary1-price {
+  display: none;
+}
+
+.summary1 {
+  display: none;
+}
+
+.order-summary {
+  display: none;
+}
+
+.line-summary {
+  display: none;
+}
+
+.summary2-price {
+  display: none;
+}
+
+.summary3-price {
+  display: none;
+}
+
+.line-summary-2 {
+  display: none;
+}
+
+.summary4-price {
+  display: none;
+}
+
+.order-container {
+  display: none;
+}
+
+.checkout-btn {
+  background-color: rgb(255, 255, 3);
+  color: black;
+  font-family: 'Proza Libre', serif;
+  font-weight: bold;
+  font-size: smaller;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: none;
+  position: relative;
+}
+
+.checkout-btn:active {
+  top: 3px;
+}
+
+.align-checkout {
+  text-align: center;
+}
+
+.yellow-cir {
+  background-color: yellow;
+  display: inline;
+  border-radius: 50%;
+  padding: 7px;
+  font-size: x-small;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+} */
+
+/*            cart page                                  */
+
+/* larger screens second */
+
+/* @media screen and (width >= 768px) { */
+
+/*                    home page                        */
+
+/* .header-h1 {
+    color: white;
+    font-family: 'Proza Libre', serif;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 50px;
+    line-height: 40px;
+  } */
+
+/* .header-h4 { */
+
+/* to display h4 again because media cannot override display:none */
+
+/* display: inline;
+
+    color: white;
+    font-family: 'Proza Libre', serif;
+    font-weight: normal;
+    margin-right: 30px; */
+
+/* its relative to the parent column half and other aware of its existence
+    , so if we use relative it will stay in the header relative to the header
+    if we use position absolute, it will leave the header flow and other element
+    wont aware of its existence and cart will take its place on header and word cart
+    will go all the way to the right outside header */
+
+/* position: relative;
+    bottom: 18px;
+    cursor: pointer;
+  } */
+
+/* don't use margin because it will cause an increase to the overall size */
+
+/* .header-img {
+    margin-right: 15px;
+  }
+
+  .body-h1 {
+    font-family: 'Proza Libre', serif;
+    font-weight: normal;
+    font-size: 30px;
+  } */
+
+/* i only need to change margin here, because the rest properties all already existed in the
+  same select on the top */
+
+/* .categories-homepage {
+    font-size: 30px;
+    margin-left: 80px;
+  } */
+
+/* i already have flex in the same ruleset so we only need to change justify
+  content that will only works if we have a space */
+
+/* .align-contents-small-body {
+    justify-content: left;
+  } */
+
+/* .viewing {
+    display: inline;
+    font-size: 30px;
+    position: relative;
+    left: 70px;
+  }
+
+  .number-listing {
+    font-size: 30px;
+  }
+
+  hr {
+    margin-bottom: 50px;
+  } */
+
+/* applied only for large screens */
+
+/* .align-row {
+    justify-content: space-evenly;
+  } */
+
+/* adding the hover only on bigger screens */
+
+/* .item-design { */
+
+/* we added display flex to apply the properties direction and justify. Now the .item-design becomes the new parent
+    after adding the display flex to it. Display flex ruins previous rulesets we have created */
+
+/* display: flex;
+    flex-direction: column;
+    justify-content: end;
+  } */
+
+/* .item-design:hover { */
+
+/* instead of using top: 3px */
+
+/* transform: translateY(10px);
+  } */
+
+/* .mock-image { */
+
+/* it centers out the image using auto  */
+
+/* margin: auto;
+  } */
+
+/* .add-to-cart-btn { */
+
+/* using auto on left and right because margin auto did not push it to bottom */
+
+/* margin-left: auto;
+    margin-right: auto;
+  } */
+
+/*                    home page                        */
+
+/*                    cart page                        */
+
+/* .column-third-cart {
+    width: calc(100% / 3);
+  }
+
+  .header-h4:active {
+    color: black;
+  }
+
+  .p-col-third-1-cart {
+    padding: 50px;
+    width: 70%;
+    margin: auto;
+  }
+
+  #column2 {
+    order: 0;
+  }
+
+  #column1 {
+    margin-top: 0;
+  }
+
+  .column-third-cart-align {
+    text-align: center;
+    height: 375px;
+  }
+
+  #column3 {
+    margin-bottom: 0;
+  }
+
+  .summary1-price {
+    display: inline;
+    margin-left: 200px;
+  }
+
+  .summary2-price {
+    display: inline;
+    margin-left: 145px;
+  }
+
+  .summary1 {
+    display: inline;
+  }
+
+  .order-summary {
+    display: inline;
+    font-family: 'Proza Libre', serif;
+    font-weight: normal;
+    font-size: 30px;
+  }
+
+  .line-summary {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .line-summary-2 {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .column-full-height {
+    height: 20px;
+  }
+
+  .summary3-price {
+    display: inline;
+    margin-left: 235px;
+  }
+
+  .summary4-price {
+    display: inline;
+    margin-left: 255px;
+  }
+
+  .order-container {
+    display: inline;
+  }
+
+  .align-checkout {
+    text-align: end;
+  }
+
+  .yellow-cir {
+    right: 315px;
+    top: 10px;
+  }
+} */
