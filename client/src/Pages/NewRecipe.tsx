@@ -8,9 +8,10 @@ import Markdown from 'react-markdown';
 
 export function NewRecipe() {
   const [requestIngredient, setRequestIngredient] = useState('');
-  const [responseRecipe, setResponseRecipe] = useState<Recipe>();
+  const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState<unknown>();
+  let recipeText;
 
   async function handleSubmit() {
     setIsLoading(true);
@@ -38,13 +39,23 @@ export function NewRecipe() {
     }
   }
 
-  let recipeText;
+  function handleDelete() {
+    // not mutate state only its key
+    // setResponseRecipe({recipe:"", title:""});
+    setResponseRecipe(null);
+    // its skipping the recipeText because its calling setResponseRecipe
+    // recipeText = (
+    //   <p className="font-color">
+    //     Welcome to Cooking wizard AI. Enter ingredients below.....
+    //   </p>
+    // );
+  }
 
   if (isLoading) {
     recipeText = <div>Loading...</div>;
   } else if (responseRecipe) {
     recipeText = <Markdown>{responseRecipe.recipe}</Markdown>;
-  } else {
+  } else if (!isLoading && !responseRecipe) {
     recipeText = (
       <p className="font-color">
         Welcome to Cooking wizard AI. Enter ingredients below.....
@@ -87,11 +98,15 @@ export function NewRecipe() {
                 </div>
                 {/* div is acting as a row and has 4 columns icons */}
                 <div>
+                  {' '}
                   <GiCampCookingPot
                     className="add-margin"
                     onClick={handleSubmit}
                   />
-                  <RiDeleteBin6Line className="add-margin" />
+                  <RiDeleteBin6Line
+                    className="add-margin"
+                    onClick={handleDelete}
+                  />
                   <TfiSave className="add-margin" />
                 </div>
               </div>
