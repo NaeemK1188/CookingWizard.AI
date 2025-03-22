@@ -42,13 +42,9 @@ export function NewRecipe() {
   function handleDelete() {
     // not mutate state only its key
     // setResponseRecipe({recipe:"", title:""});
+    // takes null now because we added to the state null
     setResponseRecipe(null);
-    // its skipping the recipeText because its calling setResponseRecipe
-    // recipeText = (
-    //   <p className="font-color">
-    //     Welcome to Cooking wizard AI. Enter ingredients below.....
-    //   </p>
-    // );
+    setRequestIngredient('');
   }
 
   if (isLoading) {
