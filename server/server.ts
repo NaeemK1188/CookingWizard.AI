@@ -4,6 +4,7 @@ import express from 'express';
 import pg from 'pg';
 import { ClientError, errorMiddleware } from './lib/index.js';
 import { OpenAI } from 'openai';
+import { request } from 'http';
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -62,6 +63,8 @@ app.get('/api/hello', (req, res) => {
 app.post('/api/new-recipe', async (req, res, next) => {
   try {
     const { requestIngredient } = req.body;
+    console.log(req.body);
+    console.log(requestIngredient);
     if (!requestIngredient) {
       throw new ClientError(400, 'missing body content');
     }

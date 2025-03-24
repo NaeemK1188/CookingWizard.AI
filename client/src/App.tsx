@@ -1,35 +1,37 @@
-import { useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
 import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { AppDrawer } from './components/AppDrawer';
+import { HomePage } from './Pages/HomePage';
+import { NewRecipe } from './Pages/NewRecipe';
+import { Recipes } from './Pages/Recipes';
+import { RecipeDetails } from './Pages/RecipeDetails';
+
+// title, recipe are from the response from the /api/new-recipe
+// because server.ts at /api/new-recipe endpoint, its sending
+// res.json({ title, recipe: recipeResponse }) an object Recipe
+// use export ot pass the Recipe as a prop
+export type Recipe = {
+  title: string;
+  recipe: string;
+};
 
 export default function App() {
-  const [serverData, setServerData] = useState('');
-
-  useEffect(() => {
-    async function readServerData() {
-      const resp = await fetch('/api/hello');
-      const data = await resp.json();
-
-      console.log('Data from server:', data);
-
-      setServerData(data.message);
-    }
-
-    readServerData();
-  }, []);
-
+  // both wil be changing on display and constantly changing, so there states are changing
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>{serverData}</h1>
-    </>
+    // routes don't need to be in order
+
+    <Routes>
+      {/* the header side window or can be at the top that will be always in the home page at "/"
+      and every page */}
+      {/* these are function calls which first one(AppDrawer) is calling AppDrawer function or component and
+      and returning the all the UI elements */}
+      <Route path="/" element={<AppDrawer />}>
+        {/* home page at "/" */}
+        <Route index element={<HomePage />} />
+        <Route path="new-recipe" element={<NewRecipe />} />
+        <Route path="recipes" element={<Recipes />} />
+        <Route path="recipes/:recipeId" element={<RecipeDetails />} />
+      </Route>
+    </Routes>
   );
 }
