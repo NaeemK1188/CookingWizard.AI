@@ -1,7 +1,7 @@
 /*            home page                                  */
 
 header {
-  background-image: url('Orange and Yellow Modern Illustrative Asian Cooking Class Google Classroom Header (2).png');
+  background-image: url('/Orange and Yellow Modern Illustrative Asian Cooking Class Google Classroom Header (2).png');
   background-size: 1920px 200px;
   background-position: center;
   background-repeat: no-repeat;
@@ -124,7 +124,7 @@ header {
 }
 
 .bg-img-close {
-  background-image: url('Black Minimalist Recipes Paper A4 Document.png');
+  background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -138,7 +138,7 @@ header {
 }
 
 .bg-img-open {
-  background-image: url('Black Minimalist Recipes Paper A4 Document.png');
+  background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
