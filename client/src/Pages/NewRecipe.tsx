@@ -5,8 +5,22 @@ import { GiCampCookingPot } from 'react-icons/gi';
 import { TfiSave } from 'react-icons/tfi';
 import { type Recipe } from '../App';
 import Markdown from 'react-markdown';
+import { useOutletContext } from 'react-router-dom';
+
+// we need to use the prop key that its value is the state
+
+// receiving the state setter set_Recent_Recipes from AppDrawer to
+// update the recentRecipe state in AppDrawer
+export type OutletContextType = {
+  isopen: boolean;
+  set_Recent_Recipes: (recipe: Recipe) => void;
+  // using  (recipe: Recipe) because we are expecting to send back recipe
+  // if we use only "() =>" and we are doing set_Recent_Recipes(recipe: Recipe),
+  // react will give us error, expecting nothing and you are passing one argument
+};
 
 export function NewRecipe() {
+  const { isopen, set_Recent_Recipes } = useOutletContext<OutletContextType>();
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
@@ -30,8 +44,11 @@ export function NewRecipe() {
       if (!response.ok) {
         throw new Error(`fetch ERROR ${response.status}`);
       }
-      const recipe = (await response.json()) as Recipe;
-      setResponseRecipe(recipe);
+      const recipe = (await response.json()) as Recipe; // we are receiving an object back from the server(recipe,title)
+      setResponseRecipe(recipe); // updating the recipe's object
+      set_Recent_Recipes(recipe); // telling parent AppDrawer about new recipe
+      // Now AppDrawer knows about the new recipe and display it on screen in jsx
+      // we can pass the data up to parent by using state setter functions
     } catch (error) {
       alert(error);
     } finally {
@@ -39,7 +56,7 @@ export function NewRecipe() {
     }
   }
 
-  function handleDelete() {
+  function handleClear() {
     // not mutate state only its key
     // setResponseRecipe({recipe:"", title:""});
     // takes null now because we added to the state null
@@ -59,16 +76,25 @@ export function NewRecipe() {
     );
   }
 
+  // if (isopen === true)
+  // {
+  //   toggleBg = 'bg-img-open ';
+  // }
+
+  // else if (isopen === false)
+  // {
+  //   toggleBg = 'bg-img-close';
+  // }
+
   return (
-    <div className="bg-img">
+    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+      {/* <div className="bg-img-close"> */}
       <div className="container-new-recipe">
         <div className="d-flex flex-dir ">
           <div className="row">
             <div className="column-full">
               {/* { !isLoading && <p className="font-color">
                 {responseRecipe?.recipe ?? "Welcome to Cooking wizard AI. Enter ingredients below....."}
-
-
               </p>}
                  {isLoading && <div>Loading...</div>} */}
               {recipeText}
@@ -80,6 +106,7 @@ export function NewRecipe() {
               <div className="column-full">
                 {/* textarea is acting as a row */}
                 <div>
+                  {/* the value property is from what user enter in the textarea */}
                   <textarea
                     name="request"
                     cols={70}
@@ -94,14 +121,13 @@ export function NewRecipe() {
                 </div>
                 {/* div is acting as a row and has 4 columns icons */}
                 <div>
-                  {' '}
                   <GiCampCookingPot
                     className="add-margin"
                     onClick={handleSubmit}
                   />
                   <RiDeleteBin6Line
                     className="add-margin"
-                    onClick={handleDelete}
+                    onClick={handleClear}
                   />
                   <TfiSave className="add-margin" />
                 </div>

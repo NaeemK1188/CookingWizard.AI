@@ -23,6 +23,8 @@ export default function App() {
     <Routes>
       {/* the header side window or can be at the top that will be always in the home page at "/"
       and every page */}
+      {/* these are function calls which first one(AppDrawer) is calling AppDrawer function or component and
+      and returning the all the UI elements */}
       <Route path="/" element={<AppDrawer />}>
         {/* home page at "/" */}
         <Route index element={<HomePage />} />

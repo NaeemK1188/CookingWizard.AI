@@ -41,7 +41,7 @@ header {
 }
 
 .is-close {
-  width: 3rem;
+  width: 4.7rem;
 }
 
 .menu-heading {
@@ -119,7 +119,21 @@ header {
   cursor: pointer;
 }
 
-.bg-img {
+.bg-img-close {
+  background-image: url('Black Minimalist Recipes Paper A4 Document.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 110vh;
+  text-align: center;
+  flex-direction: column;
+  width: 1828px;
+
+  /* not flex box property */
+  align-content: center;
+}
+
+.bg-img-open {
   background-image: url('Black Minimalist Recipes Paper A4 Document.png');
   background-size: cover;
   background-position: center;

@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import './RecipeDetails.css';
+import { useOutletContext } from 'react-router-dom';
+import { type OutletContextType } from './NewRecipe';
 
 export function RecipeDetails() {
+  const { isopen } = useOutletContext<OutletContextType>();
   return (
-    <div className="bg-img">
+    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
       <div className="container-new-recipe">
         <div className="row">
           <h1 className="font-recipes">Recipes:</h1>
