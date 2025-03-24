@@ -65,7 +65,7 @@ export function NewRecipe() {
   }
 
   if (isLoading) {
-    recipeText = <div>Loading Generating Recipe...</div>;
+    recipeText = <div>Generating Recipe...</div>;
   } else if (responseRecipe) {
     recipeText = <Markdown>{responseRecipe.recipe}</Markdown>;
   } else if (!isLoading && !responseRecipe) {
