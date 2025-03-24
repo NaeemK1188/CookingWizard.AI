@@ -96,12 +96,16 @@ header {
   width: 4.1rem;
   margin: 0.3rem;
   display: inline-block;
+
+  /* adding height because the image of the pan is stretched on aside navbar */
+  height: 1%;
 }
 
 .item-icon-resize-noodles {
   width: 3rem;
   margin: 0.3rem;
   margin-right: 15px;
+  height: 1%;
 }
 
 .grow {

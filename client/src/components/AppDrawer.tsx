@@ -11,7 +11,7 @@ export function AppDrawer() {
   // null to set it null when i dont have any recipes, and type
   // recipe because i will be receiving from NewRecipe component a new recipe object
   // that has a recipe and recipe title
-  const [recentRecipes, setRecentRecipes] = useState<Recipe | null>();
+  const [recentRecipes, setRecentRecipes] = useState<Recipe[]>([]);
   let headingText = '';
   let is_Open = '';
   let menuName = '';
@@ -27,10 +27,14 @@ export function AppDrawer() {
     }
   }
 
+  function handleAdd(newRecipe: Recipe) {
+    setRecentRecipes(recentRecipes.concat(newRecipe));
+  }
+
   if (isOpen === true) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
-    menuName = ' Your Recipes:';
+    menuName = ' Recent Recipes:';
   } else if (isOpen === false) {
     is_Open = 'is-close';
     headingText = '';
@@ -97,17 +101,16 @@ export function AppDrawer() {
                   Home
                 </NavLink>
               </li>
+              {/* we will be doing the same thing in adding new recipes in your Recipes page */}
               <li className="menu-item">
                 {menuName}
-                {recentRecipes ? (
+                {recentRecipes.map((recentRecipe, index) => (
                   <NavLink to="/recipes/:recipeId" className="menu-link">
-                    {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
-                    {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}
-                    {recentRecipes.title}
+                    {index + 1}. {recentRecipe.title}
                   </NavLink>
-                ) : (
-                  ''
-                )}
+                ))}
+                {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
+                {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}
               </li>
               {/* if isOpen === true add two buttons, when its close remove the buttons */}
               {isOpen === true ? (
@@ -124,12 +127,12 @@ export function AppDrawer() {
         <div className="grow">
           {/* i cannot use props inside the outlet because its a placeholder
           from react Router, it has to be a context
-          so it can be used with all other pages(children) */}
+          ,so it can be used with all other pages(children) */}
           {/* we are nor sending the state only the state setter to update it from
           the NewRecipe component */}
-          <Outlet
-            context={{ isopen: isOpen, set_Recent_Recipes: setRecentRecipes }}
-          />
+          {/* instead of using function handleAdd that handle events, we can use the
+          state setter function(setRecentRecipes) to understand what is happening  */}
+          <Outlet context={{ isopen: isOpen, set_Recent_Recipes: handleAdd }} />
           {/* we can pass the state only RecentRecipes only if another component needs only to read it
           not updating it. Children communicate with parent using state handlers and parent
           communicate with children using props */}
