@@ -31,6 +31,8 @@ export function Recipes() {
     loadRecipes();
   }, []);
 
+  console.log(newRecipes);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -38,7 +40,7 @@ export function Recipes() {
   if (error) {
     return (
       <div>
-        Error Loading Catalog:{' '}
+        Error Loading Recipes:
         {error instanceof Error ? error.message : 'Unknown Error'}
       </div>
     );
@@ -52,19 +54,22 @@ export function Recipes() {
           <h1 className="font-recipes">Recipes:</h1>
         </div>
         <div className="row">
-          <div className="column-half">
+          <div className="column-full">
             {newRecipes.map((newRecipe, index) => (
-              <div key={newRecipe.recipeId}>
-                <Link to="/recipes/:recipeId" className="menu-link-recipes">
+              // div here is parent container and its children: Link, RiDeleteBin6Line icon
+              <div key={newRecipe.recipeId} className="d-flex justify-around ">
+                <Link
+                  to={`/recipes/${newRecipe.recipeId}`}
+                  className="menu-link-recipes">
                   <h3 className="h3-recipes">
+                    {/* newRecipe.responseTitle here the responseTitle has to match what in the Recipes table
+                    where each newRecipes row has a property responseTitle */}
                     {index + 1}. {newRecipe.responseTitle}
                   </h3>
                 </Link>
+                <RiDeleteBin6Line size={25} className="add-margin-recipes" />
               </div>
             ))}
-          </div>
-          <div className="column-half">
-            <RiDeleteBin6Line size={25} className="add-margin-recipes" />
           </div>
         </div>
       </div>
