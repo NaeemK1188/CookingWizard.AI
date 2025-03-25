@@ -121,7 +121,7 @@ app.get('/api/recipes', async (req, res, next) => {
     // res.user is an auth middleware object after signing in
     // we need to fix it since req.user?.userId not exists yet because no signing yet
     // if req.user?.userId is undefined, then outout row where userId = 1
-    const params = [req.user?.userId ?? 3]; // always query for userId 1 or use 2
+    const params = [req.user?.userId ?? 2]; // always query for userId 1 or use 2
     // with the end point '/api/recipes', which outputs all recipes for userId 1 or 2
     // if we use [req.user?.userId ?? 3], it will output ClientError(404, 'No recipes are available')
     // // or
@@ -190,7 +190,7 @@ app.post('/api/recipes', async (req, res, next) => {
       responseTitle,
       requestIngredient,
       responseInstruction,
-      req.user?.userId ?? 2,
+      req.user?.userId ?? 1,
     ]; // adding new recipe for userId = 2
     const result = await db.query(sql, params);
     const newRecipe = result.rows[0];

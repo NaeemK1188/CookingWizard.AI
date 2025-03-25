@@ -24,6 +24,7 @@ export function NewRecipe() {
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   // const [error, setError] = useState<unknown>();
   let recipeText;
 
@@ -62,6 +63,43 @@ export function NewRecipe() {
     // takes null now because we added to the state null
     setResponseRecipe(null);
     setRequestIngredient('');
+    setIsSaved(false);
+  }
+
+  async function handleSave() {
+    setIsSaved(false);
+    try {
+      const request1 = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // not we are storing the value of the properties in a variable so requestIngredient is like
+        // requestIngredient: "Bananas and milk"
+        body: JSON.stringify({
+          responseTitle: responseRecipe?.title,
+          requestIngredient,
+          responseInstruction: responseRecipe?.recipe,
+        }),
+      };
+
+      // to see what im sending
+      console.log('sending', {
+        responseTitle: responseRecipe?.responseTitle,
+        requestIngredient,
+        responseInstruction: responseRecipe?.responseInstruction,
+      });
+      const response1 = await fetch('/api/recipes', request1);
+
+      if (!response1.ok) {
+        throw new Error(`fetch ERROR ${response1.status}`);
+      }
+    } catch (error) {
+      alert(error);
+    } finally {
+      setIsSaved(true);
+      // alert('New Recipe has been added');
+    }
   }
 
   if (isLoading) {
@@ -97,13 +135,20 @@ export function NewRecipe() {
                 {responseRecipe?.recipe ?? "Welcome to Cooking wizard AI. Enter ingredients below....."}
               </p>}
                  {isLoading && <div>Loading...</div>} */}
+              {isSaved && (
+                <textarea
+                  placeholder="New Recipe has been added"
+                  className="popup"
+                />
+              )}
+              {/* recipeText is showing the response or isLoading or the default text */}
               {recipeText}
             </div>
           </div>
           <div>
             <div className="row">
               {/*  column-full is acting as a container*/}
-              <div className="column-full">
+              <div className="column-full sticky-bottom">
                 {/* textarea is acting as a row */}
                 <div>
                   {/* the value property is from what user enter in the textarea */}
@@ -129,7 +174,7 @@ export function NewRecipe() {
                     className="add-margin"
                     onClick={handleClear}
                   />
-                  <TfiSave className="add-margin" />
+                  <TfiSave className="add-margin" onClick={handleSave} />
                 </div>
               </div>
             </div>

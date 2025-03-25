@@ -28,6 +28,7 @@ export function AppDrawer() {
   }
 
   function handleAdd(newRecipe: Recipe) {
+    console.log('newRecipe', newRecipe);
     setRecentRecipes(recentRecipes.concat(newRecipe));
   }
 
@@ -102,12 +103,14 @@ export function AppDrawer() {
                 </NavLink>
               </li>
               {/* we will be doing the same thing in adding new recipes in your Recipes page */}
-              <li className="menu-item">
+              <li className="recent-items">
                 {menuName}
                 {recentRecipes.map((recentRecipe, index) => (
-                  <NavLink to="/recipes/:recipeId" className="menu-link">
-                    {index + 1}. {recentRecipe.title}
-                  </NavLink>
+                  <div key={index}>
+                    <h5>
+                      {index + 1}. {recentRecipe.title}
+                    </h5>
+                  </div>
                 ))}
                 {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
                 {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}

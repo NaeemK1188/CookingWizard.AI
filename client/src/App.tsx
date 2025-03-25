@@ -11,8 +11,11 @@ import { RecipeDetails } from './Pages/RecipeDetails';
 // res.json({ title, recipe: recipeResponse }) an object Recipe
 // use export ot pass the Recipe as a prop
 export type Recipe = {
-  title: string;
-  recipe: string;
+  recipeId: number; // it has to b the same name in table in recipes table
+  responseTitle: string; // like the server body property not title
+  responseInstruction: string;
+  recipe: string; // same  variable naming to what in the post request response in openAI endpoint in res.json
+  title: string; // same variable naming to what in the post request response in openAI endpoint in res.json
 };
 
 export default function App() {
