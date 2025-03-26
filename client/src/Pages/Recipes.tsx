@@ -8,7 +8,7 @@ import { type Recipe } from '../App';
 
 export function Recipes() {
   const { isopen } = useOutletContext<OutletContextType>();
-  const [newRecipes, setNewRecipe] = useState<Recipe[]>([]);
+  const [newRecipes, setNewRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<unknown>();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,7 +20,7 @@ export function Recipes() {
           throw new Error(`Response status:${response2.status}`);
         }
         const responseData = (await response2.json()) as Recipe[];
-        setNewRecipe(responseData);
+        setNewRecipes(responseData);
       } catch (error) {
         setError(error);
       } finally {
@@ -30,6 +30,26 @@ export function Recipes() {
     setIsLoading(true); // or at the top of useEffect()
     loadRecipes();
   }, []);
+
+  async function handleDelete(recipeId: number) {
+    try {
+      const req = {
+        method: 'DELETE',
+      };
+      const response = await fetch(`/api/recipes/${recipeId}`, req);
+      if (!response.ok) {
+        throw new Error(`response status: ${response.status}`);
+      }
+      // not equal the one i want to delete. keeps everything in the array except the one
+      // matches the same recipeId
+
+      setNewRecipes(
+        newRecipes.filter((recipe) => recipe.recipeId !== recipeId)
+      );
+    } catch (error) {
+      alert('failed to delete');
+    }
+  }
 
   console.log(newRecipes);
 
@@ -67,7 +87,14 @@ export function Recipes() {
                     {index + 1}. {newRecipe.responseTitle}
                   </h3>
                 </Link>
-                <RiDeleteBin6Line size={25} className="add-margin-recipes" />
+                {/* we are using arrow function to pass the handleDelete the recipeId that has to be deleted from the recipes list */}
+                {/* its only getting deleted when we refresh the page which is deleting from the database. we need to deleted from react
+                which is getting deleted without refreshing the page  */}
+                <RiDeleteBin6Line
+                  size={25}
+                  className="add-margin-recipes"
+                  onClick={() => handleDelete(newRecipe.recipeId)}
+                />
               </div>
             ))}
           </div>

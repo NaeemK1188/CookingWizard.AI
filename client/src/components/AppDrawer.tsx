@@ -27,6 +27,7 @@ export function AppDrawer() {
     }
   }
 
+  // using add without being saved into the database
   function handleAdd(newRecipe: Recipe) {
     console.log('newRecipe', newRecipe);
     setRecentRecipes(recentRecipes.concat(newRecipe));
@@ -53,6 +54,7 @@ export function AppDrawer() {
           <div className="row ">
             <div className="column-full d-flex justify-between">
               <div>
+                {' '}
                 <VscThreeBars
                   size={40}
                   className="cursor-click"
@@ -144,24 +146,6 @@ export function AppDrawer() {
     </>
   );
 }
-
-//  {
-//    /* NavLink add extra styling to link  */
-//  }
-//  <nav className="px-4 text-white bg-gray-900">
-//    <ul>
-//      <li className="inline-block py-2 px-4">
-//        <Link to="/about" className="text-white adding-cursor">
-//          About
-//        </Link>
-//      </li>
-//      <li className="inline-block py-2 px-4 adding-cursor">
-//        <Link to="/" className="text-white adding-cursor">
-//          Catalog
-//        </Link>
-//      </li>
-//    </ul>
-//  </nav>;
 
 //------------testing header -------------------------
 //  <NavLink to="/">
