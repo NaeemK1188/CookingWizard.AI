@@ -18,3 +18,47 @@
   color: inherit;
   text-decoration: none;
 }
+
+.delete-entry-button {
+  border: none;
+  text-decoration: underline;
+  color: red;
+}
+
+.modal-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  height: 160px;
+  width: 400px;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 1.3rem;
+}
+
+.modal-button {
+  border-radius: 5px;
+  height: 50px;
+  width: 120px;
+  border: none;
+  font-size: 1.3rem;
+}
+
+.white-text {
+  color: #fff;
+}
+
+.red-background {
+  background-color: #dc2626;
+}
+
+.clicked-btn {
+  position: relative;
+  top: 3px;
+}

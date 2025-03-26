@@ -11,6 +11,7 @@ export function Recipes() {
   const [newRecipes, setNewRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<unknown>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     async function loadRecipes() {
@@ -48,6 +49,8 @@ export function Recipes() {
       );
     } catch (error) {
       alert('failed to delete');
+    } finally {
+      setIsDeleting(false);
     }
   }
 
@@ -90,11 +93,35 @@ export function Recipes() {
                 {/* we are using arrow function to pass the handleDelete the recipeId that has to be deleted from the recipes list */}
                 {/* its only getting deleted when we refresh the page which is deleting from the database. we need to deleted from react
                 which is getting deleted without refreshing the page  */}
+                {/* testing deleting immediately without a model */}
+                {/* <RiDeleteBin6Line size={25} className="add-margin-recipes" onClick={() => handleDelete(newRecipe.recipeId)}/> */}
                 <RiDeleteBin6Line
                   size={25}
                   className="add-margin-recipes"
-                  onClick={() => handleDelete(newRecipe.recipeId)}
+                  onClick={() => setIsDeleting(true)}
                 />
+                {isDeleting && (
+                  <div className="modal-container d-flex justify-center align-center">
+                    <div className="modal row">
+                      <div className="column-full d-flex justify-center">
+                        <p>Are you sure you want to delete this recipe?</p>
+                      </div>
+                      <div className="column-full d-flex  justify-between">
+                        <button
+                          className="modal-button clicked-btn"
+                          onClick={() => setIsDeleting(false)}>
+                          Cancel
+                        </button>
+                        {/* pass recipeId in newRecipes[index].recipeId */}
+                        <button
+                          className="modal-button red-background white-text"
+                          onClick={() => handleDelete(newRecipe.recipeId)}>
+                          Confirm
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

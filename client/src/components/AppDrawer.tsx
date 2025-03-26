@@ -54,7 +54,6 @@ export function AppDrawer() {
           <div className="row ">
             <div className="column-full d-flex justify-between">
               <div>
-                {' '}
                 <VscThreeBars
                   size={40}
                   className="cursor-click"
@@ -70,7 +69,7 @@ export function AppDrawer() {
       </header>
       <div className="d-flex">
         {/* Now both aside(side window and other pages will be flex) */}
-        <aside className="d-flex width-aside">
+        <aside className="d-flex">
           <div className={`menu-drawer ${is_Open}`}>
             <h3 className="menu-heading">{headingText}</h3>
             <ul className="menu-items">
