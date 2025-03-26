@@ -27,6 +27,7 @@ export function AppDrawer() {
     }
   }
 
+  // using add without being saved into the database
   function handleAdd(newRecipe: Recipe) {
     console.log('newRecipe', newRecipe);
     setRecentRecipes(recentRecipes.concat(newRecipe));
@@ -68,7 +69,7 @@ export function AppDrawer() {
       </header>
       <div className="d-flex">
         {/* Now both aside(side window and other pages will be flex) */}
-        <aside className="d-flex width-aside">
+        <aside className="d-flex">
           <div className={`menu-drawer ${is_Open}`}>
             <h3 className="menu-heading">{headingText}</h3>
             <ul className="menu-items">
@@ -144,24 +145,6 @@ export function AppDrawer() {
     </>
   );
 }
-
-//  {
-//    /* NavLink add extra styling to link  */
-//  }
-//  <nav className="px-4 text-white bg-gray-900">
-//    <ul>
-//      <li className="inline-block py-2 px-4">
-//        <Link to="/about" className="text-white adding-cursor">
-//          About
-//        </Link>
-//      </li>
-//      <li className="inline-block py-2 px-4 adding-cursor">
-//        <Link to="/" className="text-white adding-cursor">
-//          Catalog
-//        </Link>
-//      </li>
-//    </ul>
-//  </nav>;
 
 //------------testing header -------------------------
 //  <NavLink to="/">

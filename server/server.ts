@@ -218,7 +218,7 @@ app.delete('/api/recipes/:recipeId', async (req, res, next) => {
     const sql = `delete from "Recipes"
                  where "recipeId" = $1 and "userId" = $2
                  returning *;`;
-    const params = [recipeId, req.user?.userId ?? 2];
+    const params = [recipeId, req.user?.userId ?? 1];
     const result = await db.query(sql, params);
     const removedRecipe = result.rows[0];
     if (!removedRecipe) {
