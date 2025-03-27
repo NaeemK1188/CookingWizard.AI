@@ -14,17 +14,24 @@ export function Recipes() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    async function loadRecipes() {
-      try {
+    async function loadRecipes()
+    {
+      try
+      {
         const response2 = await fetch('/api/recipes');
-        if (!response2.ok) {
+        if (!response2.ok)
+        {
           throw new Error(`Response status:${response2.status}`);
         }
         const responseData = (await response2.json()) as Recipe[];
         setNewRecipes(responseData);
-      } catch (error) {
+      }
+      catch (error)
+      {
         setError(error);
-      } finally {
+      }
+      finally
+      {
         setIsLoading(false);
       }
     }
@@ -32,38 +39,45 @@ export function Recipes() {
     loadRecipes();
   }, []);
 
-  async function handleDelete(recipeId: number) {
-    try {
+  async function handleDelete(recipeId: number)
+  {
+    try
+    {
       const req = {
         method: 'DELETE',
       };
       const response = await fetch(`/api/recipes/${recipeId}`, req);
-      if (!response.ok) {
+      if (!response.ok)
+      {
         throw new Error(`response status: ${response.status}`);
       }
       // not equal the one i want to delete. keeps everything in the array except the one
       // matches the same recipeId
 
-      setNewRecipes(
-        newRecipes.filter((recipe) => recipe.recipeId !== recipeId)
-      );
-    } catch (error) {
+      setNewRecipes(newRecipes.filter((recipe) => recipe.recipeId !== recipeId));
+    }
+    catch (error)
+    {
       alert('failed to delete');
-    } finally {
+    }
+    finally
+    {
       setIsDeleting(false);
     }
   }
 
   console.log(newRecipes);
 
-  if (isLoading) {
+  if (isLoading)
+  {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (error)
+  {
     return (
       <div>
-        Error Loading Recipes:
+        Error Loading Recipes: please sign in or sign up {''}.
         {error instanceof Error ? error.message : 'Unknown Error'}
       </div>
     );
@@ -81,9 +95,7 @@ export function Recipes() {
             {newRecipes.map((newRecipe, index) => (
               // div here is parent container and its children: Link, RiDeleteBin6Line icon
               <div key={newRecipe.recipeId} className="d-flex justify-around ">
-                <Link
-                  to={`/recipes/${newRecipe.recipeId}`}
-                  className="menu-link-recipes">
+                <Link to={`/recipes/${newRecipe.recipeId}`} className="menu-link-recipes">
                   <h3 className="h3-recipes">
                     {/* newRecipe.responseTitle here the responseTitle has to match what in the Recipes table
                     where each newRecipes row has a property responseTitle */}
@@ -95,11 +107,7 @@ export function Recipes() {
                 which is getting deleted without refreshing the page  */}
                 {/* testing deleting immediately without a model */}
                 {/* <RiDeleteBin6Line size={25} className="add-margin-recipes" onClick={() => handleDelete(newRecipe.recipeId)}/> */}
-                <RiDeleteBin6Line
-                  size={25}
-                  className="add-margin-recipes"
-                  onClick={() => setIsDeleting(true)}
-                />
+                <RiDeleteBin6Line size={25} className="add-margin-recipes" onClick={() => setIsDeleting(true)}/>
                 {isDeleting && (
                   <div className="modal-container d-flex justify-center align-center">
                     <div className="modal row">
@@ -107,15 +115,11 @@ export function Recipes() {
                         <p>Are you sure you want to delete this recipe?</p>
                       </div>
                       <div className="column-full d-flex  justify-between">
-                        <button
-                          className="modal-button clicked-btn"
-                          onClick={() => setIsDeleting(false)}>
+                        <button className="modal-button clicked-btn" onClick={() => setIsDeleting(false)}>
                           Cancel
                         </button>
                         {/* pass recipeId in newRecipes[index].recipeId */}
-                        <button
-                          className="modal-button red-background white-text"
-                          onClick={() => handleDelete(newRecipe.recipeId)}>
+                        <button className="modal-button red-background white-text" onClick={() => handleDelete(newRecipe.recipeId)}>
                           Confirm
                         </button>
                       </div>

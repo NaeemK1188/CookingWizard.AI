@@ -6,7 +6,8 @@ import { useState } from 'react';
 import { Recipe } from '../App';
 
 //<PiUserCircleLight />
-export function AppDrawer() {
+export function AppDrawer()
+{
   const [isOpen, setIsOpen] = useState(true);
   // null to set it null when i dont have any recipes, and type
   // recipe because i will be receiving from NewRecipe component a new recipe object
@@ -19,25 +20,33 @@ export function AppDrawer() {
   // first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
   // if/else with the new values that will change the UI
-  function handleDrawer() {
-    if (isOpen === true) {
+  function handleDrawer()
+  {
+    if (isOpen === true)
+    {
       setIsOpen(false);
-    } else if (isOpen === false) {
+    }
+    else if (isOpen === false)
+    {
       setIsOpen(true);
     }
   }
 
   // using add without being saved into the database
-  function handleAdd(newRecipe: Recipe) {
+  function handleAdd(newRecipe: Recipe)
+  {
     console.log('newRecipe', newRecipe);
     setRecentRecipes(recentRecipes.concat(newRecipe));
   }
 
-  if (isOpen === true) {
+  if (isOpen === true)
+  {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
-  } else if (isOpen === false) {
+  }
+  else if (isOpen === false)
+  {
     is_Open = 'is-close';
     headingText = '';
     menuName = '';
@@ -54,11 +63,7 @@ export function AppDrawer() {
           <div className="row ">
             <div className="column-full d-flex justify-between">
               <div>
-                <VscThreeBars
-                  size={40}
-                  className="cursor-click"
-                  onClick={handleDrawer}
-                />
+                <VscThreeBars size={40} className="cursor-click" onClick={handleDrawer}/>
               </div>
               <div className="white-cir-user">
                 <PiUserCircleLight size={50} />
@@ -75,31 +80,19 @@ export function AppDrawer() {
             <ul className="menu-items">
               <li className="menu-item">
                 <NavLink to="/new-recipe" className="menu-link">
-                  <img
-                    src="pan-resized-removebg-preview.png"
-                    alt="pan"
-                    className="item-icon"
-                  />
+                  <img src="pan-resized-removebg-preview.png" alt="pan" className="item-icon"/>
                   New Recipe
                 </NavLink>
               </li>
               <li className="menu-item">
                 <NavLink to="/recipes" className="menu-link">
-                  <img
-                    src="noodlesIcon-resized-removebg-preview.png"
-                    alt="noodles"
-                    className="item-icon-resize-noodles"
-                  />
+                  <img src="noodlesIcon-resized-removebg-preview.png" alt="noodles" className="item-icon-resize-noodles"/>
                   Your Recipes
                 </NavLink>
               </li>
               <li className="menu-item">
                 <NavLink to="/" className="menu-link">
-                  <img
-                    src="resized-recipe-removebg-preview.png"
-                    alt="recipe"
-                    className="item-icon-resize-noodles"
-                  />
+                  <img src="resized-recipe-removebg-preview.png" alt="recipe" className="item-icon-resize-noodles"/>
                   Home
                 </NavLink>
               </li>
@@ -121,10 +114,7 @@ export function AppDrawer() {
                 <li>
                   <button className="btn-style">Sign in</button>
                   <button className="btn-style">Sign up</button>
-                </li>
-              ) : (
-                ''
-              )}
+                </li>) : ("")}
             </ul>
           </div>
         </aside>

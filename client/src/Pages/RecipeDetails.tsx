@@ -6,7 +6,8 @@ import { type Recipe } from '../App';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 
-export function RecipeDetails() {
+export function RecipeDetails()
+{
   const { recipeId } = useParams();
   const { isopen } = useOutletContext<OutletContextType>();
   // using this state because the details are changing on the screen
@@ -18,29 +19,38 @@ export function RecipeDetails() {
   useEffect(() => {
     // we dont have to use recipeId: number because it can access the top
     // {RecipeId} = useParams()
-    async function loadRecipe() {
-      try {
+    async function loadRecipe()
+    {
+      try
+      {
         const response3 = await fetch(`/api/recipes/${recipeId}`);
-        if (!response3.ok) {
+        if (!response3.ok)
+        {
           throw new Error(`Response status:${response3.status}`);
         }
         const responseData = (await response3.json()) as Recipe;
         setrecipeDetail(responseData);
-      } catch (error) {
+      }
+      catch (error)
+      {
         setError(error);
-      } finally {
+      }
+      finally
+      {
         setIsLoading(false);
       }
     }
 
-    if (recipeId) {
+    if (recipeId)
+    {
       // if RecipeId exist
       setIsLoading(true);
       loadRecipe();
     }
   }, [recipeId]);
 
-  if (isLoading) {
+  if (isLoading)
+  {
     return <div>Loading...</div>;
   }
 
@@ -55,7 +65,8 @@ export function RecipeDetails() {
     );
   }
 
-  if (!recipeDetail) {
+  if (!recipeDetail)
+  {
     return null;
   }
 
