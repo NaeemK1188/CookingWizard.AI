@@ -59,6 +59,14 @@
   align-items: flex-end;
 }
 
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
 .width-100 {
   width: 100%;
 }

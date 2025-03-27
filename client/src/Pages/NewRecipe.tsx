@@ -6,6 +6,7 @@ import { TfiSave } from 'react-icons/tfi';
 import { type Recipe } from '../App';
 import Markdown from 'react-markdown';
 import { useOutletContext } from 'react-router-dom';
+import { readToken } from '../data';
 
 // we need to use the prop key that its value is the state
 
@@ -19,8 +20,7 @@ export type OutletContextType = {
   // react will give us error, expecting nothing and you are passing one argument
 };
 
-export function NewRecipe()
-{
+export function NewRecipe() {
   const { isopen, set_Recent_Recipes } = useOutletContext<OutletContextType>();
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
@@ -29,15 +29,17 @@ export function NewRecipe()
   // const [error, setError] = useState<unknown>();
   let recipeText;
 
-  async function handleSubmit()
-  {
+  async function handleSubmit() {
     setIsLoading(true);
-    try
-    {
+    try {
+      // readToken is to make sure that if the user is already signed in and it will
+      // be used in every fetch call
+      const bear = readToken();
       const request = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         // the body has to have the same name like the body in server body server.ts
         body: JSON.stringify({ requestIngredient }),
@@ -45,8 +47,7 @@ export function NewRecipe()
 
       const response = await fetch('/api/new-recipe', request);
 
-      if (!response.ok)
-      {
+      if (!response.ok) {
         throw new Error(`fetch ERROR ${response.status}`);
       }
       const recipe = (await response.json()) as Recipe; // we are receiving an object back from the server(recipe,title)
@@ -54,73 +55,65 @@ export function NewRecipe()
       set_Recent_Recipes(recipe); // telling parent AppDrawer about new recipe
       // Now AppDrawer knows about the new recipe and display it on screen in jsx
       // we can pass the data up to parent by using state setter functions
-    }
-    catch (error)
-    {
+    } catch (error) {
       alert(error);
-    }
-    finally
-    {
+    } finally {
       setIsLoading(false);
     }
   }
 
-  function handleClear()
-  {
+  function handleClear() {
     // not mutate state only its key
     // setResponseRecipe({recipe:"", title:""});
     // takes null now because we added to the state null
     setResponseRecipe(null);
-    setRequestIngredient("");
+    setRequestIngredient('');
     setIsSaved(false);
   }
 
-  async function handleSave()
-  {
+  async function handleSave() {
     setIsSaved(false);
-    try
-    {
+    try {
+      const bear = readToken();
       const request1 = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         // not we are storing the value of the properties in a variable so requestIngredient is like
         // requestIngredient: "Bananas and milk"
-        body: JSON.stringify({responseTitle: responseRecipe?.title, requestIngredient, responseInstruction: responseRecipe?.recipe}),
+        body: JSON.stringify({
+          responseTitle: responseRecipe?.title,
+          requestIngredient,
+          responseInstruction: responseRecipe?.recipe,
+        }),
       };
 
       // to see what im sending
-      console.log('sending', { responseTitle: responseRecipe?.responseTitle, requestIngredient,
-        responseInstruction: responseRecipe?.responseInstruction,});
+      console.log('sending', {
+        responseTitle: responseRecipe?.responseTitle,
+        requestIngredient,
+        responseInstruction: responseRecipe?.responseInstruction,
+      });
       const response1 = await fetch('/api/recipes', request1);
 
-      if (!response1.ok)
-      {
+      if (!response1.ok) {
         throw new Error(`fetch ERROR ${response1.status}`);
       }
-    }
-    catch (error)
-    {
+    } catch (error) {
       alert(error);
-    }
-    finally
-    {
+    } finally {
       setIsSaved(true);
       // alert('New Recipe has been added');
     }
   }
 
-  if (isLoading)
-  {
+  if (isLoading) {
     recipeText = <div>Generating Recipe...</div>;
-  }
-  else if (responseRecipe)
-  {
+  } else if (responseRecipe) {
     recipeText = <Markdown>{responseRecipe.recipe}</Markdown>;
-  }
-  else if (!isLoading && !responseRecipe)
-  {
+  } else if (!isLoading && !responseRecipe) {
     recipeText = (
       <p className="font-color">
         Welcome to Cooking wizard AI. Enter ingredients below.....
@@ -149,7 +142,12 @@ export function NewRecipe()
                 {responseRecipe?.recipe ?? "Welcome to Cooking wizard AI. Enter ingredients below....."}
               </p>}
                  {isLoading && <div>Loading...</div>} */}
-              {isSaved && ( <textarea placeholder="New Recipe has been added" className="popup"/>)}
+              {isSaved && (
+                <textarea
+                  placeholder="New Recipe has been added"
+                  className="popup"
+                />
+              )}
               {/* recipeText is showing the response or isLoading or the default text */}
               {recipeText}
             </div>
@@ -161,14 +159,28 @@ export function NewRecipe()
                 {/* textarea is acting as a row */}
                 <div>
                   {/* the value property is from what user enter in the textarea */}
-                  <textarea name="request" cols={70} rows={6} placeholder="what do you have in pantry ?" className="request-container"
-                    value={requestIngredient} onChange={(event) => setRequestIngredient(event.target.value)}
+                  <textarea
+                    name="request"
+                    cols={70}
+                    rows={6}
+                    placeholder="what do you have in pantry ?"
+                    className="request-container"
+                    value={requestIngredient}
+                    onChange={(event) =>
+                      setRequestIngredient(event.target.value)
+                    }
                   />
                 </div>
                 {/* div is acting as a row and has 4 columns icons */}
                 <div>
-                  <GiCampCookingPot className="add-margin" onClick={handleSubmit}/>
-                  <RiDeleteBin6Line className="add-margin" onClick={handleClear}/>
+                  <GiCampCookingPot
+                    className="add-margin"
+                    onClick={handleSubmit}
+                  />
+                  <RiDeleteBin6Line
+                    className="add-margin"
+                    onClick={handleClear}
+                  />
                   <TfiSave className="add-margin" onClick={handleSave} />
                 </div>
               </div>

@@ -21,6 +21,7 @@ export function AppDrawer() {
   let headingText = '';
   let is_Open = '';
   let menuName = '';
+  let signIn = '';
 
   // first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
@@ -39,14 +40,22 @@ export function AppDrawer() {
     setRecentRecipes(recentRecipes.concat(newRecipe));
   }
 
-  if (isOpen === true) {
+  if (isOpen === true && !user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
+    // signIn = `signed in as ${user.username}`;
+    signIn = 'not signed in';
+  } else if (isOpen === true && user) {
+    is_Open = 'is-open';
+    headingText = 'Cooking Wizard';
+    menuName = ' Recent Recipes:';
+    signIn = `signed in as ${user.username}`;
   } else if (isOpen === false) {
     is_Open = 'is-close';
     headingText = '';
     menuName = '';
+    signIn = '';
   }
   // the component has to be used inside the return so it return something
   // this component is just being called, but not returning anything although
@@ -86,7 +95,7 @@ export function AppDrawer() {
               <li className="menu-item">
                 <NavLink to="/new-recipe" className="menu-link">
                   <img
-                    src="pan-resized-removebg-preview.png"
+                    src="/pan-resized-removebg-preview.png"
                     alt="pan"
                     className="item-icon"
                   />
@@ -96,7 +105,7 @@ export function AppDrawer() {
               <li className="menu-item">
                 <NavLink to="/recipes" className="menu-link">
                   <img
-                    src="noodlesIcon-resized-removebg-preview.png"
+                    src="/noodlesIcon-resized-removebg-preview.png"
                     alt="noodles"
                     className="item-icon-resize-noodles"
                   />
@@ -106,7 +115,7 @@ export function AppDrawer() {
               <li className="menu-item">
                 <NavLink to="/" className="menu-link">
                   <img
-                    src="resized-recipe-removebg-preview.png"
+                    src="/resized-recipe-removebg-preview.png"
                     alt="recipe"
                     className="item-icon-resize-noodles"
                   />
@@ -138,12 +147,12 @@ export function AppDrawer() {
                     we are using navigate because its button not a text with text use Link tag */}
                       <button
                         className="btn-style"
-                        onClick={() => navigate('auth/sign-in')}>
+                        onClick={() => navigate('/auth/sign-in')}>
                         Sign in
                       </button>
                       <button
                         className="btn-style"
-                        onClick={() => navigate('auth/sign-up')}>
+                        onClick={() => navigate('/auth/sign-up')}>
                         Sign up
                       </button>
                     </>
@@ -153,7 +162,7 @@ export function AppDrawer() {
                       className="btn-style"
                       onClick={() => {
                         handleSignOut();
-                        navigate('auth/sign-in');
+                        navigate('/auth/sign-in');
                       }}>
                       Sign out
                     </button>
@@ -162,10 +171,8 @@ export function AppDrawer() {
               ) : (
                 ''
               )}
-              {!user && <p className="recent-items">Not signed in</p>}
-              {user && (
-                <p className="recent-items"> signed in as {user.username}</p>
-              )}
+              {!user && <p className="recent-items">{signIn}</p>}
+              {user && <p className="recent-items">{signIn} </p>}
             </ul>
           </div>
         </aside>
