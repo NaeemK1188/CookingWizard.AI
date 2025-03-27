@@ -4,15 +4,20 @@ import { VscThreeBars } from 'react-icons/vsc';
 import { PiUserCircleLight } from 'react-icons/pi';
 import { useState } from 'react';
 import { Recipe } from '../App';
+import { useUser } from '../Pages/useUser';
+import { useNavigate } from 'react-router-dom';
+import { LiaUserTimesSolid } from 'react-icons/lia';
 
 //<PiUserCircleLight />
-export function AppDrawer()
-{
+export function AppDrawer() {
   const [isOpen, setIsOpen] = useState(true);
   // null to set it null when i dont have any recipes, and type
   // recipe because i will be receiving from NewRecipe component a new recipe object
   // that has a recipe and recipe title
   const [recentRecipes, setRecentRecipes] = useState<Recipe[]>([]);
+  const { user, handleSignOut } = useUser(); // creating custom hook and we destructuring from it user
+  // and handleSignOut props in UserContext.tsx
+  const navigate = useNavigate();
   let headingText = '';
   let is_Open = '';
   let menuName = '';
@@ -20,33 +25,25 @@ export function AppDrawer()
   // first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
   // if/else with the new values that will change the UI
-  function handleDrawer()
-  {
-    if (isOpen === true)
-    {
+  function handleDrawer() {
+    if (isOpen === true) {
       setIsOpen(false);
-    }
-    else if (isOpen === false)
-    {
+    } else if (isOpen === false) {
       setIsOpen(true);
     }
   }
 
   // using add without being saved into the database
-  function handleAdd(newRecipe: Recipe)
-  {
+  function handleAdd(newRecipe: Recipe) {
     console.log('newRecipe', newRecipe);
     setRecentRecipes(recentRecipes.concat(newRecipe));
   }
 
-  if (isOpen === true)
-  {
+  if (isOpen === true) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
-  }
-  else if (isOpen === false)
-  {
+  } else if (isOpen === false) {
     is_Open = 'is-close';
     headingText = '';
     menuName = '';
@@ -63,10 +60,18 @@ export function AppDrawer()
           <div className="row ">
             <div className="column-full d-flex justify-between">
               <div>
-                <VscThreeBars size={40} className="cursor-click" onClick={handleDrawer}/>
+                <VscThreeBars
+                  size={40}
+                  className="cursor-click"
+                  onClick={handleDrawer}
+                />
               </div>
               <div className="white-cir-user">
-                <PiUserCircleLight size={50} />
+                {user ? (
+                  <PiUserCircleLight size={50} />
+                ) : (
+                  <LiaUserTimesSolid size={50} />
+                )}
               </div>
             </div>
           </div>
@@ -80,19 +85,31 @@ export function AppDrawer()
             <ul className="menu-items">
               <li className="menu-item">
                 <NavLink to="/new-recipe" className="menu-link">
-                  <img src="pan-resized-removebg-preview.png" alt="pan" className="item-icon"/>
+                  <img
+                    src="pan-resized-removebg-preview.png"
+                    alt="pan"
+                    className="item-icon"
+                  />
                   New Recipe
                 </NavLink>
               </li>
               <li className="menu-item">
                 <NavLink to="/recipes" className="menu-link">
-                  <img src="noodlesIcon-resized-removebg-preview.png" alt="noodles" className="item-icon-resize-noodles"/>
+                  <img
+                    src="noodlesIcon-resized-removebg-preview.png"
+                    alt="noodles"
+                    className="item-icon-resize-noodles"
+                  />
                   Your Recipes
                 </NavLink>
               </li>
               <li className="menu-item">
                 <NavLink to="/" className="menu-link">
-                  <img src="resized-recipe-removebg-preview.png" alt="recipe" className="item-icon-resize-noodles"/>
+                  <img
+                    src="resized-recipe-removebg-preview.png"
+                    alt="recipe"
+                    className="item-icon-resize-noodles"
+                  />
                   Home
                 </NavLink>
               </li>
@@ -111,10 +128,44 @@ export function AppDrawer()
               </li>
               {/* if isOpen === true add two buttons, when its close remove the buttons */}
               {isOpen === true ? (
+                //  {!user && ( )} its treated as a return so we need to add one parent <> </>
                 <li>
-                  <button className="btn-style">Sign in</button>
-                  <button className="btn-style">Sign up</button>
-                </li>) : ("")}
+                  {/*  !user && or user && are each works as an if statement
+                  we cannot do two functionalities in one if statement*/}
+                  {!user && (
+                    <>
+                      {/* "auth/sign-in" like in the path property in app.tsx for SignInForm.tsx
+                    we are using navigate because its button not a text with text use Link tag */}
+                      <button
+                        className="btn-style"
+                        onClick={() => navigate('auth/sign-in')}>
+                        Sign in
+                      </button>
+                      <button
+                        className="btn-style"
+                        onClick={() => navigate('auth/sign-up')}>
+                        Sign up
+                      </button>
+                    </>
+                  )}
+                  {user && (
+                    <button
+                      className="btn-style"
+                      onClick={() => {
+                        handleSignOut();
+                        navigate('auth/sign-in');
+                      }}>
+                      Sign out
+                    </button>
+                  )}
+                </li>
+              ) : (
+                ''
+              )}
+              {!user && <p className="recent-items">Not signed in</p>}
+              {user && (
+                <p className="recent-items"> signed in as {user.username}</p>
+              )}
             </ul>
           </div>
         </aside>
