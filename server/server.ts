@@ -22,27 +22,6 @@ const db = new pg.Pool({
 // where the client is created directly by instantiating OpenAI object
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-// -------------testing OpenAI ---------------------------
-// const responseAI = await openai.chat.completions.create({
-//   model: "gpt-4o",
-//   messages: [
-//     {
-//       role: "system",
-//       content: `Act as a professional cooker, who creates recipes for average people at home
-//       from random ingredients they have. Extract for me the title of the recipe and instructions.`
-//     },
-//     {
-//       role: "user",
-//       content: `The user enters onion, tomatoes, and potatoes. My user only expects to see the recipe title, ingredients, and
-//       and recipe instructions and that is all they need.`
-//     }
-//   ]
-// });
-
-// console.log(responseAI.choices[0].message.content);
-
-// -------------testing OpenAI ---------------------------
-
 const app = express();
 
 // Create paths for static directories
@@ -53,11 +32,6 @@ app.use(express.static(reactStaticDir));
 // Static directory for file uploads server/public/
 app.use(express.static(uploadsStaticDir));
 app.use(express.json());
-
-// test on client side
-// app.get('/api/hello', (req, res) => {
-//   res.json({ message: 'Hello, World!' });
-// });
 
 // -------------------Actual application endpoints ------------------------------------
 
@@ -159,7 +133,6 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
     console.log(recipeResponse); // output in server terminal
 
     // using regex(regular expression language) on a text
-    // const title = recipeResponse?.match(/\*\*Recipe Title:\*\*\s(.*?)\\n/);
     // extracting title from the AI response
     const title = recipeResponse?.match(/#\s(.*)/)?.[1]; // using regular expression to get everything after # and stops and first of \n.
     // then we are extracting the second element of the array returned that is the title because ".match" returns the target and the result in one array
@@ -186,14 +159,10 @@ app.get('/api/recipes', authMiddleware, async (req, res, next) => {
     // if req.user?.userId is undefined, then output row where userId = 1
 
     // testing users when we don't have signup/sign in ready
-    // const params = [req.user?.userId ?? 1]; always query for userId 1 or use 2
+    // [req.user?.userId ?? 1]; always query for userId 1 or use 2
 
     // with the end point '/api/recipes', which outputs all recipes for userId 1 or 2
     // if we use [req.user?.userId ?? 3], it will output ClientError(404, 'No recipes are available')
-    // // or
-    // const params = [!req.user?.userId && 2];
-    // or
-    // const params = [req.user?.userId ? "" : 1];
     const params = [req.user?.userId];
     const result = await db.query(sql, params);
     const recipes = result.rows;
@@ -223,8 +192,6 @@ app.get('/api/recipes/:recipeId', authMiddleware, async (req, res, next) => {
     const sql = `select * from "Recipes"
                  where "recipeId" = $1 and "userId" = $2 `;
     // testing users when we don't have signup/sign in ready
-    // const params = [recipeId, req.user?.userId ?? 1];  req.user?.userId ?? 1 for userId
-
     // always query for userId 1 or use 2 with /api/recipes/3, it will output recipeId 3 for userId 2
     // if [recipeId, req.user?.userId ?? 2] and http localhost:8080/api/recipes/2, it will output
     // only recipeId 2 for userId 2 not all recipes
@@ -258,7 +225,7 @@ app.post('/api/recipes', authMiddleware, async (req, res, next) => {
     // req.user?.userId or .user?.userId comes from authMiddleware
 
     // testing users when we don't have sign in sign up ready
-    // const params = [responseTitle, requestIngredient, responseInstruction, req.user?.userId ?? 1]; // adding new recipe for userId = 2
+    // [responseTitle, requestIngredient, responseInstruction, req.user?.userId ?? 1]; // adding new recipe for userId = 1
 
     const params = [
       responseTitle,
@@ -293,7 +260,7 @@ app.delete('/api/recipes/:recipeId', authMiddleware, async (req, res, next) => {
                  where "recipeId" = $1 and "userId" = $2
                  returning *;`;
     // testing users when we don't have sign in sign up ready
-    // const params = [recipeId, req.user?.userId ?? 1];
+    // [recipeId, req.user?.userId ?? 1];
 
     const params = [recipeId, req.user?.userId];
     const result = await db.query(sql, params);

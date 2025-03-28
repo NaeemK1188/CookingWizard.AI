@@ -1,4 +1,3 @@
-// import { Link } from 'react-router-dom';
 import { useOutletContext } from 'react-router-dom';
 import { type OutletContextType } from './NewRecipe';
 import './HomePage.css';

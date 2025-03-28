@@ -8,10 +8,9 @@ import { useUser } from '../Pages/useUser';
 import { useNavigate } from 'react-router-dom';
 import { LiaUserTimesSolid } from 'react-icons/lia';
 
-//<PiUserCircleLight />
 export function AppDrawer() {
   const [isOpen, setIsOpen] = useState(true);
-  // null to set it null when i dont have any recipes, and type
+  // set it null when i don't have any recipes, and type
   // recipe because i will be receiving from NewRecipe component a new recipe object
   // that has a recipe and recipe title
   const [recentRecipes, setRecentRecipes] = useState<Recipe[]>([]);
@@ -44,7 +43,7 @@ export function AppDrawer() {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
-    // signIn = `signed in as ${user.username}`;
+
     signIn = 'not signed in';
   } else if (isOpen === true && user) {
     is_Open = 'is-open';
@@ -183,7 +182,7 @@ export function AppDrawer() {
           {/* i cannot use props inside the outlet because its a placeholder
           from react Router, it has to be a context
           ,so it can be used with all other pages(children) */}
-          {/* we are nor sending the state only the state setter to update it from
+          {/* we are not sending the state; only the state setter to update it from
           the NewRecipe component */}
           {/* instead of using function handleAdd that handle events, we can use the
           state setter function(setRecentRecipes) to understand what is happening  */}
@@ -196,12 +195,3 @@ export function AppDrawer() {
     </>
   );
 }
-
-//------------testing header -------------------------
-//  <NavLink to="/">
-//         <h1>back to homePage</h1>
-//       </NavLink>
-//       <div>
-//         {/* the current page displays in outlet*/}
-//         <Outlet />
-//       </div>

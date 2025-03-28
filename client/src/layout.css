@@ -8,14 +8,7 @@
 
 /* starts at smaller devices like for phones */
 
-/* .container {
-  max-width: 575px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-} */
-
 .container {
-  /* max-width: 100vw; */
   max-width: 1800px;
   margin: 0 auto;
   padding: 0 1.5rem;
@@ -85,11 +78,6 @@
 
 /* all columns in small screen will take 100% of the row so only one item in one row or two */
 
-/* .column-full,
-.column-fifth {
-  width: 100%;
-} */
-
 .column-fifth {
   width: 20%;
 }
@@ -110,28 +98,9 @@
 
 /* or when screen is desktop */
 
-/* @media screen and (width >= 768px) { */
-
 /* we only changed the width when the screen is bigger, but the container will stay
   in the middle because margin in auto on the to top ruleset */
 
-/* .container {
-    max-width: 1500px;
-  } */
-
 /* when two items in one row each will take half the row */
 
-/* .column-half {
-    width: 50%;
-  } */
-
 /* when we have five elements in one row */
-
-/* .column-fifth {
-    width: 20%;
-  }
-
-  .column-third {
-    width: calc(100% / 3);
-  }
-} */

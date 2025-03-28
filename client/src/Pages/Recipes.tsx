@@ -105,7 +105,6 @@ export function Recipes() {
                 {/* its only getting deleted when we refresh the page which is deleting from the database. we need to deleted from react
                 which is getting deleted without refreshing the page  */}
                 {/* testing deleting immediately without a model */}
-                {/* <RiDeleteBin6Line size={25} className="add-margin-recipes" onClick={() => handleDelete(newRecipe.recipeId)}/> */}
                 <RiDeleteBin6Line
                   size={25}
                   className="add-margin-recipes"
@@ -141,11 +140,3 @@ export function Recipes() {
     </div>
   );
 }
-
-// testing routing
-// <div>
-//   <h1>This is Recipes page</h1>
-//   <Link to="/">&lt; Back to Homepage</Link>
-//   <Link to="/new-recipe">&lt; Navigate to New Recipe</Link>
-//   <Link to="/recipes/:recipeId">&lt; Navigate to recipe Details</Link>
-// </div>
