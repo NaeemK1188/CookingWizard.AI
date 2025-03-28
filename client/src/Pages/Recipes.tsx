@@ -5,6 +5,7 @@ import { type OutletContextType } from './NewRecipe';
 import { useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { type Recipe } from '../App';
+import { readToken } from '../data';
 
 export function Recipes() {
   const { isopen } = useOutletContext<OutletContextType>();
@@ -16,7 +17,15 @@ export function Recipes() {
   useEffect(() => {
     async function loadRecipes() {
       try {
-        const response2 = await fetch('/api/recipes');
+        const bear = readToken();
+        const request = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${bear}`,
+          },
+        };
+        const response2 = await fetch('/api/recipes', request);
         if (!response2.ok) {
           throw new Error(`Response status:${response2.status}`);
         }
@@ -34,8 +43,10 @@ export function Recipes() {
 
   async function handleDelete(recipeId: number) {
     try {
+      const bear = readToken();
       const req = {
         method: 'DELETE',
+        Authorization: `Bearer ${bear}`,
       };
       const response = await fetch(`/api/recipes/${recipeId}`, req);
       if (!response.ok) {
@@ -63,7 +74,7 @@ export function Recipes() {
   if (error) {
     return (
       <div>
-        Error Loading Recipes:
+        Error Loading Recipes: please sign in or sign up {''}.
         {error instanceof Error ? error.message : 'Unknown Error'}
       </div>
     );

@@ -6,6 +6,7 @@ import { TfiSave } from 'react-icons/tfi';
 import { type Recipe } from '../App';
 import Markdown from 'react-markdown';
 import { useOutletContext } from 'react-router-dom';
+import { readToken } from '../data';
 
 // we need to use the prop key that its value is the state
 
@@ -31,10 +32,14 @@ export function NewRecipe() {
   async function handleSubmit() {
     setIsLoading(true);
     try {
+      // readToken is to make sure that if the user is already signed in and it will
+      // be used in every fetch call
+      const bear = readToken();
       const request = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         // the body has to have the same name like the body in server body server.ts
         body: JSON.stringify({ requestIngredient }),
@@ -69,10 +74,12 @@ export function NewRecipe() {
   async function handleSave() {
     setIsSaved(false);
     try {
+      const bear = readToken();
       const request1 = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
         },
         // not we are storing the value of the properties in a variable so requestIngredient is like
         // requestIngredient: "Bananas and milk"
@@ -167,14 +174,17 @@ export function NewRecipe() {
                 {/* div is acting as a row and has 4 columns icons */}
                 <div>
                   <GiCampCookingPot
-                    className="add-margin"
+                    // className="add-margin"
                     onClick={handleSubmit}
                   />
                   <RiDeleteBin6Line
-                    className="add-margin"
+                    // className="add-margin"
                     onClick={handleClear}
                   />
-                  <TfiSave className="add-margin" onClick={handleSave} />
+                  <TfiSave
+                    //  className="add-margin"
+                    onClick={handleSave}
+                  />
                 </div>
               </div>
             </div>

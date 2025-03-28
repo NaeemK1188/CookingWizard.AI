@@ -1,0 +1,30 @@
+.h2-register {
+  margin-right: 390px;
+  font-size: xxx-large;
+}
+
+.btn-style-register {
+  background-color: orangered;
+  color: aliceblue;
+  border-color: aliceblue;
+  border-radius: 7px;
+  margin: 30px;
+  margin-right: 430px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.add-padding {
+  padding-bottom: 20px;
+}
+
+.add-margin {
+  margin-right: 250px;
+}
+
+.container-register {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 550px;
+}

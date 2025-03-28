@@ -5,6 +5,7 @@ import { type OutletContextType } from './NewRecipe';
 import { type Recipe } from '../App';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
+import { readToken } from '../data';
 
 export function RecipeDetails() {
   const { recipeId } = useParams();
@@ -20,7 +21,16 @@ export function RecipeDetails() {
     // {RecipeId} = useParams()
     async function loadRecipe() {
       try {
-        const response3 = await fetch(`/api/recipes/${recipeId}`);
+        const bear = readToken();
+        const request = {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${bear}`,
+          },
+        };
+
+        const response3 = await fetch(`/api/recipes/${recipeId}`, request);
         if (!response3.ok) {
           throw new Error(`Response status:${response3.status}`);
         }
