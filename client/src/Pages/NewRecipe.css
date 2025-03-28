@@ -7,7 +7,8 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  height: 100vh;
+
+  /* height: 100vh; */
 }
 
 .request-container {
@@ -24,7 +25,8 @@
 .flex-dir {
   flex-direction: column;
   justify-content: space-between;
-  height: 95vh;
+
+  /* height: 95vh; */
 }
 
 .popup {
@@ -35,8 +37,8 @@
   top: 400px;
 }
 
-.sticky-bottom {
+/* .sticky-bottom {
   position: fixed;
   bottom: 0;
   left: 100px;
-}
+} */

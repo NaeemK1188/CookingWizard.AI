@@ -53,7 +53,7 @@ export function SignInForm() {
       <div className="container-register">
         <div className="row">
           <div className="column-full">
-            <h2 className="h2-register">Register</h2>
+            <h2 className="h2-register">Sign In</h2>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
@@ -73,7 +73,7 @@ export function SignInForm() {
             <div className="column-full">
               {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
               <button disabled={isLoading} className="btn-style-register">
-                Register
+                Login
               </button>
             </div>
           </div>
