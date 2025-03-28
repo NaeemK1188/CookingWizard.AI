@@ -57,6 +57,8 @@ export function AppDrawer() {
     menuName = '';
     signIn = '';
   }
+
+  // const noUser = !user ? <div>Some text</div> : <div>Some other thing</div>
   // the component has to be used inside the return so it return something
   // this component is just being called, but not returning anything although
   // the NewRecipe jsx has a return, but here its not placed inside a return
@@ -125,13 +127,14 @@ export function AppDrawer() {
               {/* we will be doing the same thing in adding new recipes in your Recipes page */}
               <li className="recent-items">
                 {menuName}
-                {recentRecipes.map((recentRecipe, index) => (
-                  <div key={index}>
-                    <h5>
-                      {index + 1}. {recentRecipe.title}
-                    </h5>
-                  </div>
-                ))}
+                {user &&
+                  recentRecipes.map((recentRecipe, index) => (
+                    <div key={index}>
+                      <h5>
+                        {index + 1}. {recentRecipe.title}
+                      </h5>
+                    </div>
+                  ))}
                 {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
                 {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}
               </li>

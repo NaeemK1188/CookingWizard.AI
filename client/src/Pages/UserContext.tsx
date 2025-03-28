@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react';
 import { User } from './RegistrationForm';
 import { readToken, readUser } from '../data';
 
-// declaring type or object with variables
+// declaring type called UserContextValues
 export type UserContextValues = {
   user: User | undefined;
   token: string | undefined;
@@ -12,6 +12,7 @@ export type UserContextValues = {
 
 // why we are creating context ?
 // we can see its an initial values been given to UserContext or default values
+// declaring an object of type UserContextValues that has default value for each property
 export const UserContext = createContext<UserContextValues>({
   user: undefined,
   token: undefined,
@@ -36,6 +37,7 @@ export function UserProvider({ children }: Props) {
 
   const [user, setUser] = useState<User>();
   const [token, setToken] = useState<string>();
+  // prevents auto sign out after refreshing the page
   useEffect(() => {
     setUser(readUser());
     setToken(readToken());
@@ -48,6 +50,8 @@ export function UserProvider({ children }: Props) {
     setToken(token);
     // save authorization
     const auth: Auth = { user, token };
+    // setting out the key as authKey and value as user({userId, username}, token)
+    // so its authKey:JSON.stringify(auth)
     localStorage.setItem(authKey, JSON.stringify(auth));
   }
 

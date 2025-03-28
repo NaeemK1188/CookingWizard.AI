@@ -174,15 +174,15 @@ export function NewRecipe() {
                 {/* div is acting as a row and has 4 columns icons */}
                 <div>
                   <GiCampCookingPot
-                    // className="add-margin"
+                    className="add-margin-new-recipe"
                     onClick={handleSubmit}
                   />
                   <RiDeleteBin6Line
-                    // className="add-margin"
+                    className="add-margin-new-recipe"
                     onClick={handleClear}
                   />
                   <TfiSave
-                    //  className="add-margin"
+                    className="add-margin-new-recipe"
                     onClick={handleSave}
                   />
                 </div>
