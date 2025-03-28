@@ -46,7 +46,10 @@ export function Recipes() {
       const bear = readToken();
       const req = {
         method: 'DELETE',
-        Authorization: `Bearer ${bear}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${bear}`,
+        },
       };
       const response = await fetch(`/api/recipes/${recipeId}`, req);
       if (!response.ok) {
