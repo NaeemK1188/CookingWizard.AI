@@ -26,11 +26,13 @@ export function NewRecipe() {
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [url, setUrl] = useState('');
   // const [error, setError] = useState<unknown>();
   let recipeText;
 
   async function handleSubmit() {
     setIsLoading(true);
+    setUrl(''); // it resets the url every time it calls handleSubmit
     try {
       // readToken is to make sure that if the user is already signed in and it will
       // be used in every fetch call
@@ -55,6 +57,7 @@ export function NewRecipe() {
       set_Recent_Recipes(recipe); // telling parent AppDrawer about new recipe
       // Now AppDrawer knows about the new recipe and display it on screen in jsx
       // we can pass the data up to parent by using state setter functions
+      setUrl('View Image');
     } catch (error) {
       alert(error);
     } finally {
@@ -69,6 +72,7 @@ export function NewRecipe() {
     setResponseRecipe(null);
     setRequestIngredient('');
     setIsSaved(false);
+    setUrl('');
   }
 
   async function handleSave() {
@@ -101,12 +105,15 @@ export function NewRecipe() {
       if (!response1.ok) {
         throw new Error(`fetch ERROR ${response1.status}`);
       }
+      setIsSaved(true);
     } catch (error) {
       alert(error);
-    } finally {
-      setIsSaved(true);
-      // alert('New Recipe has been added');
     }
+    // finally
+    // {
+    //
+    //   // alert('New Recipe has been added');
+    // }
   }
 
   if (isLoading) {
@@ -146,6 +153,9 @@ export function NewRecipe() {
               )}
               {/* recipeText is showing the response or isLoading or the default text */}
               {recipeText}
+              <a href={responseRecipe?.imageUrl} target="_blank">
+                {url}
+              </a>
             </div>
           </div>
           <div>

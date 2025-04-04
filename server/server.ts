@@ -159,6 +159,16 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
       ],
     });
 
+    const OpenAIResponse1 = await openai.images.generate({
+      prompt: `A professional dish of ${requestIngredient} on plate, styled
+      for a cooking blog`,
+      n: 1,
+      size: '512x512',
+      response_format: 'url',
+    });
+
+    // console.log(OpenAIResponse1.data[0].url);
+
     // extracting the entire response from OpenAI
     const recipeResponse = OpenAIResponse.choices[0].message.content;
     console.log(recipeResponse); // output in server terminal
@@ -168,7 +178,11 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
     const title = recipeResponse?.match(/#\s(.*)/)?.[1]; // using regular expression to get everything after # and stops and first of \n.
     // then we are extracting the second element of the array returned that is the title because ".match" returns the target and the result in one array
     // output is json format
-    res.json({ title, recipe: recipeResponse }); // here we can put "title" instead "title:title"
+    res.json({
+      title,
+      recipe: recipeResponse,
+      imageUrl: OpenAIResponse1.data[0].url,
+    }); // here we can put "title" instead "title:title"
     // we need to use the same naming of variables in the front end
     // output in the third terminal where we are using httpie POST request
   } catch (error) {
