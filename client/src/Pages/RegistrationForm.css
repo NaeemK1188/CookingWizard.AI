@@ -8,9 +8,12 @@
   color: aliceblue;
   border-color: aliceblue;
   border-radius: 7px;
-  margin: 30px;
+
+  /* margin: 30px; */
+  margin-right: 200px;
   padding: 5px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .add-padding {

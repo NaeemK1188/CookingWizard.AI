@@ -48,6 +48,29 @@ export function SignInForm() {
     }
   }
 
+  async function handleGuestSubmit() {
+    try {
+      const req = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ guest: true }),
+      };
+      const responseData = await fetch('/api/auth/sign-in', req);
+      if (!responseData.ok) {
+        throw new Error(`fetch Error ${responseData.status}`);
+      }
+      const { user, token } = (await responseData.json()) as Auth;
+      handleSignIn(user, token);
+      console.log('signed in user', user);
+      console.log('received token', token);
+      navigate('/');
+    } catch (error) {
+      alert(`Error signing in: ${error}`);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
       <div className="container-register">
@@ -69,18 +92,17 @@ export function SignInForm() {
               </label>
             </div>
           </div>
-          <div className="row">
-            <div className="column-full d-flex justify-center margin-left-sinIn">
-              {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
-              <button disabled={isLoading} className="btn-style-register">
-                Login
-              </button>
-              <button disabled={isLoading} className="btn-style-register">
-                Continue as a guest
-              </button>
-            </div>
-          </div>
+          {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
+          <button disabled={isLoading} className="btn-style-register">
+            Login
+          </button>
         </form>
+        <button
+          disabled={isLoading}
+          className="btn-style-register"
+          onClick={handleGuestSubmit}>
+          Continue as a guest
+        </button>
       </div>
     </div>
   );

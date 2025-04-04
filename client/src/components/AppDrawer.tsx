@@ -36,7 +36,12 @@ export function AppDrawer() {
   // using add without being saved into the database
   function handleAdd(newRecipe: Recipe) {
     console.log('newRecipe', newRecipe);
-    setRecentRecipes(recentRecipes.concat(newRecipe));
+    // if we don't add new value to userId, it will stay undefined
+    // because only adding or updating userId in type Recipes its just a type not an object
+    const newRecipeWithId = { ...newRecipe, userId: user?.userId };
+    // use prev, when we are setting a state multiple times in a row
+    // for simple state update, we can update state without prev
+    setRecentRecipes(recentRecipes.concat(newRecipeWithId));
   }
 
   if (isOpen === true && !user) {
@@ -126,14 +131,18 @@ export function AppDrawer() {
               {/* we will be doing the same thing in adding new recipes in your Recipes page */}
               <li className="recent-items">
                 {menuName}
+                {/* checks if the userId in Recipes table equals the userId in Users table
+                or if its the same user generating the  */}
                 {user &&
-                  recentRecipes.map((recentRecipe, index) => (
-                    <div key={index}>
-                      <h5>
-                        {index + 1}. {recentRecipe.title}
-                      </h5>
-                    </div>
-                  ))}
+                  recentRecipes
+                    .filter((recipe) => recipe.userId === user.userId)
+                    .map((recentRecipe, index) => (
+                      <div key={index}>
+                        <h5>
+                          {index + 1}. {recentRecipe.title}
+                        </h5>
+                      </div>
+                    ))}
                 {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
                 {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}
               </li>
@@ -186,6 +195,7 @@ export function AppDrawer() {
           the NewRecipe component */}
           {/* instead of using function handleAdd that handle events, we can use the
           state setter function(setRecentRecipes) to understand what is happening  */}
+          {/* we pass the key to get the value */}
           <Outlet context={{ isopen: isOpen, set_Recent_Recipes: handleAdd }} />
           {/* we can pass the state only RecentRecipes only if another component needs only to read it
           not updating it. Children communicate with parent using state handlers and parent

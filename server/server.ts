@@ -79,7 +79,7 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
       const params = ['guest'];
       const result = await db.query(sql, params);
       const guestUser = result.rows[0];
-
+      console.log(guestUser);
       const payload = {
         userId: guestUser.userId,
         username: guestUser.username,
@@ -92,6 +92,7 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
 
     // regular login using username and password
     // if guest === false
+
     if (!username || !password) {
       throw new ClientError(
         400,
@@ -117,7 +118,10 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     if (isPassValid) {
       // userId who is the user, what kind of user guest or not
       // what data to fetch Recipes where userId = ?
-      const payload = { userId: user.userId, username: user.username };
+      const payload = {
+        userId: user.userId,
+        username: user.username,
+      };
 
       const token = jwt.sign(payload, hashKey); // creating a token to us after sign in
       res.status(200).json({ user: payload, token }); // token:token

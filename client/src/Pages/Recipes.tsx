@@ -57,7 +57,7 @@ export function Recipes() {
       }
       // not equal the one i want to delete. keeps everything in the array except the one
       // matches the same recipeId
-
+      // recipeId is the recipe i want to delete and recipe.recipeId is the one exists in the recipes
       setNewRecipes(
         newRecipes.filter((recipe) => recipe.recipeId !== recipeId)
       );

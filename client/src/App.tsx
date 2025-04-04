@@ -13,7 +13,12 @@ import { RegistrationForm } from './Pages/RegistrationForm';
 // because server.ts at /api/new-recipe endpoint is sending
 // res.json({ title, recipe: recipeResponse }), which is an object Recipe
 // use export to pass the Recipe as a prop
+// this is only type not the object. Its like saying it should be
 export type Recipe = {
+  // we dont have ro declare it here, instead we can use spread operator in
+  // handleAdd() and add new property userId to the existing ewRecipe object
+  userId?: number; // adding it so we can filter recent recipes for each user in AppDrawer
+  // making it optional to remove error in handleAdd
   recipeId: number; // it has to b the same name in table in recipes table
   responseTitle: string; // like the server body property not title
   responseInstruction: string;
