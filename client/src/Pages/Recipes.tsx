@@ -64,6 +64,7 @@ export function Recipes() {
     } catch (error) {
       alert('failed to delete');
     } finally {
+      // So the pop up of deleting disappears
       setIsDeleting(false);
     }
   }

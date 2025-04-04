@@ -44,7 +44,7 @@ export function AppDrawer() {
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
 
-    signIn = 'not signed in';
+    // signIn = 'not signed in';
   } else if (isOpen === true && user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';

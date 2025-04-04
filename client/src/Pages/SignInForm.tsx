@@ -70,10 +70,13 @@ export function SignInForm() {
             </div>
           </div>
           <div className="row">
-            <div className="column-full">
+            <div className="column-full d-flex justify-center margin-left-sinIn">
               {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
               <button disabled={isLoading} className="btn-style-register">
                 Login
+              </button>
+              <button disabled={isLoading} className="btn-style-register">
+                Continue as a guest
               </button>
             </div>
           </div>

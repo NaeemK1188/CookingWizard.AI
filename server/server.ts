@@ -4,7 +4,6 @@ import express from 'express';
 import pg from 'pg';
 import { authMiddleware, ClientError, errorMiddleware } from './lib/index.js';
 import { OpenAI } from 'openai';
-import { request } from 'http';
 import argon2 from 'argon2';
 import jwt from 'jsonwebtoken';
 
@@ -61,12 +60,38 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
   }
 });
 
+// why userId is included in sql query because its a unique identifier for each user
+// in database and because its used as a foreign key in Recipes table
 app.post('/api/auth/sign-in', async (req, res, next) => {
   try {
     // or using const { username, password } = req.body as Partial<Auth>;
     // partial makes fields of <Auth> object optional
     // Auth object contains username and password as string type
-    const { username, password } = req.body;
+    const { username, password, guest } = req.body;
+    // sw we treat it as {username, password} and {guest}
+    // because in the httpie we can only send one parameter guest = true although
+    // the body has three parameters
+
+    if (guest === true) {
+      const sql = `select "userId", "username"
+                   from "Users"
+                   where "username"= $1;`;
+      const params = ['guest'];
+      const result = await db.query(sql, params);
+      const guestUser = result.rows[0];
+
+      const payload = {
+        userId: guestUser.userId,
+        username: guestUser.username,
+      };
+
+      const token = jwt.sign(payload, hashKey);
+      // we need to use the same keys naming in the front end
+      return res.status(200).json({ user: payload, token });
+    }
+
+    // regular login using username and password
+    // if guest === false
     if (!username || !password) {
       throw new ClientError(
         400,
@@ -90,12 +115,14 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     }
 
     if (isPassValid) {
+      // userId who is the user, what kind of user guest or not
+      // what data to fetch Recipes where userId = ?
       const payload = { userId: user.userId, username: user.username };
 
       const token = jwt.sign(payload, hashKey); // creating a token to us after sign in
       res.status(200).json({ user: payload, token }); // token:token
       // on client side we will be getting user and token as a response
-      // so we need to create an object in the back end to access the values from server
+      // so we need to create an object in the front-end to access the values from server
     }
   } catch (error) {
     next(error);
@@ -138,6 +165,7 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
     // then we are extracting the second element of the array returned that is the title because ".match" returns the target and the result in one array
     // output is json format
     res.json({ title, recipe: recipeResponse }); // here we can put "title" instead "title:title"
+    // we need to use the same naming of variables in the front end
     // output in the third terminal where we are using httpie POST request
   } catch (error) {
     next(error);
