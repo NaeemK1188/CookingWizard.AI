@@ -77,7 +77,7 @@ export function RecipeDetails() {
   return (
     // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
     <div className="bg-img-open">
-      <div className="container-new-recipe">
+      <div className="container-new-recipe margin-left-top-Details">
         <h1 className="font-recipes">Recipes:</h1>
         <Markdown>{responseInstruction}</Markdown>
         {/* we cannot use images here because the image is not saved in database to be fetched */}
