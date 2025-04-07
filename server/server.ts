@@ -72,23 +72,23 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     // because in the httpie we can only send one parameter guest = true although
     // the body has three parameters
 
-    if (guest === true) {
-      const sql = `select "userId", "username"
-                   from "Users"
-                   where "username"= $1;`;
-      const params = ['guest'];
-      const result = await db.query(sql, params);
-      const guestUser = result.rows[0];
-      console.log(guestUser);
-      const payload = {
-        userId: guestUser.userId,
-        username: guestUser.username,
-      };
+    // if (guest === true) {
+    //   const sql = `select "userId", "username"
+    //                from "Users"
+    //                where "username"= $1;`;
+    //   const params = ['guest'];
+    //   const result = await db.query(sql, params);
+    //   const guestUser = result.rows[0];
+    //   console.log(guestUser);
+    //   const payload = {
+    //     userId: guestUser.userId,
+    //     username: guestUser.username,
+    //   };
 
-      const token = jwt.sign(payload, hashKey);
-      // we need to use the same keys naming in the front end
-      return res.status(200).json({ user: payload, token });
-    }
+    //   const token = jwt.sign(payload, hashKey);
+    //   // we need to use the same keys naming in the front end
+    //   return res.status(200).json({ user: payload, token });
+    // }
 
     // regular login using username and password
     // if guest === false
@@ -182,7 +182,8 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
       title,
       recipe: recipeResponse,
       imageUrl: OpenAIResponse1.data[0].url,
-    }); // here we can put "title" instead "title:title"
+    });
+    // here we can put "title" instead "title:title"
     // we need to use the same naming of variables in the front end
     // output in the third terminal where we are using httpie POST request
   } catch (error) {

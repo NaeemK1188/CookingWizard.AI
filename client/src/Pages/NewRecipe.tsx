@@ -21,7 +21,10 @@ export type OutletContextType = {
 };
 
 export function NewRecipe() {
-  const { isopen, set_Recent_Recipes } = useOutletContext<OutletContextType>();
+  const {
+    // isopen,
+    set_Recent_Recipes,
+  } = useOutletContext<OutletContextType>();
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
@@ -139,7 +142,8 @@ export function NewRecipe() {
   // }
 
   return (
-    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    <div className="bg-img-open">
       {/* <div className="bg-img-close"> */}
       <div className="container-new-recipe">
         <div className="d-flex flex-dir ">

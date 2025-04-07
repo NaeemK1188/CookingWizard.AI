@@ -1,3 +1,14 @@
 .recent-items {
   padding-left: 1rem;
 }
+
+.h1-drawer-header {
+  /* position: relative;
+  bottom: 75px; */
+  line-height: 10px;
+}
+
+/* .margin-bottom-drawer {
+  margin-bottom: auto;
+  margin-top: auto;
+} */

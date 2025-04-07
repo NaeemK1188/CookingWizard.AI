@@ -3,13 +3,20 @@
   margin-top: 50px;
 }
 
-.container-new-recipe {
+/* .container-new-recipe {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem; */
 
-  /* height: 100vh; causing the content to be higher than the height
+/* height: 100vh; causing the content to be higher than the height
   because this height is fixed not percentage % */
+
+/* } */
+.container-new-recipe {
+  position: absolute;
+  top: 18%;
+  left: 14.1%;
+  width: 67%;
 }
 
 .request-container {

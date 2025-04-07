@@ -7,8 +7,12 @@
   width: 100%;
 }
 
-.container-home-page {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+/* making the container only in the white menu area in the background image */
+
+.margin-left-home {
+  margin-left: 50px;
+}
+
+.margin-top-home {
+  margin-top: 200px;
 }

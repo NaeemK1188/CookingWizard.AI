@@ -1,6 +1,6 @@
 import './SignInForm.css';
-import { type OutletContextType } from './NewRecipe';
-import { useOutletContext } from 'react-router-dom';
+// import { type OutletContextType } from './NewRecipe';
+// import { useOutletContext } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from './RegistrationForm';
@@ -12,7 +12,7 @@ export type Auth = {
 };
 
 export function SignInForm() {
-  const { isopen } = useOutletContext<OutletContextType>();
+  // const { isopen } = useOutletContext<OutletContextType>();
   const { handleSignIn } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -53,7 +53,8 @@ export function SignInForm() {
       const req = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ guest: true }),
+        // body: JSON.stringify({ guest: true }),
+        body: JSON.stringify({ username: 'guest', password: '12345678' }),
       };
       const responseData = await fetch('/api/auth/sign-in', req);
       if (!responseData.ok) {
@@ -72,7 +73,8 @@ export function SignInForm() {
   }
 
   return (
-    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    <div className="bg-img-open">
       <div className="container-register">
         <div className="row">
           <div className="column-full">
@@ -93,16 +95,20 @@ export function SignInForm() {
             </div>
           </div>
           {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
-          <button disabled={isLoading} className="btn-style-register">
-            Login
-          </button>
+          <div>
+            <button disabled={isLoading} className="btn-style-register">
+              Login
+            </button>
+            {/* making the second button not type submit, so its used as a clicked button */}
+            <button
+              type="button"
+              disabled={isLoading}
+              className="btn-style-register"
+              onClick={handleGuestSubmit}>
+              Continue as a guest
+            </button>
+          </div>
         </form>
-        <button
-          disabled={isLoading}
-          className="btn-style-register"
-          onClick={handleGuestSubmit}>
-          Continue as a guest
-        </button>
       </div>
     </div>
   );

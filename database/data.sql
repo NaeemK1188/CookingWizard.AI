@@ -9,13 +9,15 @@
 --      ('Learn to code', false),
 --      ('Build projects', false),
 --      ('Get a job', false);
+-- using default guest username and hashed password, so when we reset the database
+-- the guest user or sign in as guest will always works
 insert into "Users" ("username", "hashedPassword" )
-values ('guest', '22dffsxcccc@#'),
-       ('admin', '443221&**//)(8)9.');
+values ('guest', '$argon2id$v=19$m=65536,t=3,p=4$tMbSvw9M97Ob9oALO4Q2TQ$yfsrNVK4kNjK68ls7nr/ytbETFLNAW8/JchNvRC6CTc');
 
 
 
-
+-- default recipes when we didnt have the signIn/SignUp set yet.
+-- Now whenever we have userId one, the user will have two recipes as a defaulted or starting recipes
 insert into "Recipes" ("userId","responseTitle", "requestIngredient", "responseInstruction" )
 values (1, 'Tomato-Potato Rice Delight', 'Tomatoes, rice, and potatoes ', 'Ingredients:
 1 cup rice
@@ -40,6 +42,6 @@ Serve warm: Enjoy your simple yet delicious Tomato-Potato Rice Delight!' ),
 ½ tsp black pepper (optional)
 instructions:
 Add tomatoes: Toss in the chopped tomatoes, stirring occasionally. Cook until they soften and release their juices, creating a light sauce.
-Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.'),
-(2, 'lamb yogurt special', 'lamb and yogurt', 'stirring occasionally. Cook until they soften and release their juices, creating a light sauce.
-Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.' );
+Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.');
+-- (2, 'lamb yogurt special', 'lamb and yogurt', 'stirring occasionally. Cook until they soften and release their juices, creating a light sauce.
+-- Season the dish: Add salt, black pepper, and any spices you have. Stir well and let everything cook together for 5 more minutes.' );

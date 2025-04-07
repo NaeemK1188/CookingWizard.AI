@@ -2,17 +2,18 @@ import { NavLink, Outlet } from 'react-router-dom';
 import './AppDrawer.css';
 import { VscThreeBars } from 'react-icons/vsc';
 import { PiUserCircleLight } from 'react-icons/pi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Recipe } from '../App';
 import { useUser } from '../Pages/useUser';
 import { useNavigate } from 'react-router-dom';
-import { LiaUserTimesSolid } from 'react-icons/lia';
+// import { LiaUserTimesSolid } from 'react-icons/lia';
 
 export function AppDrawer() {
   const [isOpen, setIsOpen] = useState(true);
   // set it null when i don't have any recipes, and type
   // recipe because i will be receiving from NewRecipe component a new recipe object
   // that has a recipe and recipe title
+
   const [recentRecipes, setRecentRecipes] = useState<Recipe[]>([]);
   const { user, handleSignOut } = useUser(); // creating custom hook and we destructuring from it user
   // and handleSignOut props in UserContext.tsx
@@ -25,6 +26,14 @@ export function AppDrawer() {
   // first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
   // if/else with the new values that will change the UI
+  // solve the issue of the infinite re-render, because we cannot use stateSetter() in the jsx
+  // and also it trigger thr re -render whenever the user changes not on every re-render scheduled
+  useEffect(() => {
+    if (!user) {
+      setRecentRecipes([]);
+    }
+  }, [user]); // it runs whenever the user changes
+
   function handleDrawer() {
     if (isOpen === true) {
       setIsOpen(false);
@@ -41,20 +50,23 @@ export function AppDrawer() {
     const newRecipeWithId = { ...newRecipe, userId: user?.userId };
     // use prev, when we are setting a state multiple times in a row
     // for simple state update, we can update state without prev
-    setRecentRecipes(recentRecipes.concat(newRecipeWithId));
+    if (recentRecipes) {
+      setRecentRecipes(recentRecipes.concat(newRecipeWithId));
+    }
   }
 
   if (isOpen === true && !user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
+    // setRecentRecipes(null);
 
     // signIn = 'not signed in';
   } else if (isOpen === true && user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
     menuName = ' Recent Recipes:';
-    signIn = `signed in as ${user.username}`;
+    signIn = `Signed in as ${user.username.toLocaleUpperCase()}`;
   } else if (isOpen === false) {
     is_Open = 'is-close';
     headingText = '';
@@ -82,10 +94,16 @@ export function AppDrawer() {
                 />
               </div>
               <div className="white-cir-user">
+                {/* {user ? (<PiUserCircleLight size={50} />) : (<LiaUserTimesSolid size={50} />)} */}
                 {user ? (
-                  <PiUserCircleLight size={50} />
+                  <h1 className="h1-drawer-header">
+                    {user.username[0].toLocaleUpperCase()}
+                    {user.username[
+                      user.username.length - 1
+                    ].toLocaleUpperCase()}
+                  </h1>
                 ) : (
-                  <LiaUserTimesSolid size={50} />
+                  <PiUserCircleLight size={50} />
                 )}
               </div>
             </div>
@@ -94,7 +112,7 @@ export function AppDrawer() {
       </header>
       <div className="d-flex">
         {/* Now both aside(side window and other pages will be flex) */}
-        <aside className="d-flex">
+        <aside className="d-flex bg-color">
           <div className={`menu-drawer ${is_Open}`}>
             <h3 className="menu-heading">{headingText}</h3>
             <ul className="menu-items">
@@ -130,21 +148,25 @@ export function AppDrawer() {
               </li>
               {/* we will be doing the same thing in adding new recipes in your Recipes page */}
               <li className="recent-items">
-                {menuName}
-                {/* checks if the userId in Recipes table equals the userId in Users table
-                or if its the same user generating the  */}
-                {user &&
-                  recentRecipes
-                    .filter((recipe) => recipe.userId === user.userId)
-                    .map((recentRecipe, index) => (
-                      <div key={index}>
-                        <h5>
-                          {index + 1}. {recentRecipe.title}
-                        </h5>
-                      </div>
-                    ))}
-                {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
-                {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}
+                <>
+                  <h4>{menuName}</h4>
+                  {/* checks if the userId in Recipes table equals the userId in Users table
+                  or if its the same user generating the  */}
+                  {user &&
+                    recentRecipes
+                      .filter((recipe) => recipe.userId === user.userId)
+                      .map((recentRecipe, index) => (
+                        <div key={index}>
+                          <h5>
+                            {index + 1}. {recentRecipe.title}
+                          </h5>
+                        </div>
+                      ))}
+                  {/* causing infinite re-renders when setting the state inside the jsx(return ()) */}
+                  {/* {!user && setRecentRecipes([])} */}
+                  {/* has to have recipes after saving recent recipes and when refresh, they disappear */}
+                  {/* {{recentRecipes.title, ...}} spread syntax wont work, so we use map*/}
+                </>
               </li>
               {/* if isOpen === true add two buttons, when its close remove the buttons */}
               {isOpen === true ? (
@@ -196,8 +218,13 @@ export function AppDrawer() {
           {/* instead of using function handleAdd that handle events, we can use the
           state setter function(setRecentRecipes) to understand what is happening  */}
           {/* we pass the key to get the value */}
-          <Outlet context={{ isopen: isOpen, set_Recent_Recipes: handleAdd }} />
-          {/* we can pass the state only RecentRecipes only if another component needs only to read it
+          <Outlet
+            context={{
+              // isopen: isOpen,
+              set_Recent_Recipes: handleAdd,
+            }}
+          />
+          {/* we can pass the state RecentRecipes only if another component needs only to read it
           not updating it. Children communicate with parent using state handlers and parent
           communicate with children using props */}
         </div>

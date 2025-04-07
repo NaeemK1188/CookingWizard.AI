@@ -28,11 +28,14 @@ header {
 }
 
 .menu-drawer {
+  background-image: url('/Orange and Yellow Modern Illustrative Asian Cooking Class Google Classroom Header (2).png');
   width: 4rem;
   min-height: 100vh;
   padding-top: 1rem;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45);
+
+  /* background-color: rgb(255, 255, 255); */
+
+  /* box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45); */
   transition: width 0.2s ease-in-out;
 }
 
@@ -124,6 +127,7 @@ header {
   cursor: pointer;
 }
 
+/* to revert to old setup in case the new setup is not good */
 .bg-img-close {
   background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
   background-size: cover;
@@ -137,17 +141,31 @@ header {
   align-content: center;
 }
 
-.bg-img-open {
+/* .bg-img-open {
   background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
   text-align: center;
-  flex-direction: column;
+  flex-direction: column; */
 
-  /* not flex box property */
-  align-content: center;
+/* not flex box property */
+
+/* align-content: center;
+} */
+
+/* making the background using the whole background image in the url */
+.bg-img-open {
+  position: relative;
+
+  /* making the image taking the whole width of its parent which is the body */
+  width: 100%;
+  aspect-ratio: 1414 / 2000;
+  background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .cursor-click {
