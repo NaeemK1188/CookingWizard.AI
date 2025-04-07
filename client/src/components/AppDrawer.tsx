@@ -13,7 +13,7 @@ export function AppDrawer() {
   // set it null when i don't have any recipes, and type
   // recipe because i will be receiving from NewRecipe component a new recipe object
   // that has a recipe and recipe title
-
+  const [responseRecipe, setResponseRecipe] = useState<Recipe>();
   const [recentRecipes, setRecentRecipes] = useState<Recipe[]>([]);
   const { user, handleSignOut } = useUser(); // creating custom hook and we destructuring from it user
   // and handleSignOut props in UserContext.tsx
@@ -22,6 +22,8 @@ export function AppDrawer() {
   let is_Open = '';
   let menuName = '';
   let signIn = '';
+  // we can see here that the responseRecipe got updated with the new recipe from newRecipe
+  console.log('responseRecipe in AppDrawer:', responseRecipe?.imageUrl);
 
   // first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
@@ -222,8 +224,12 @@ export function AppDrawer() {
             context={{
               // isopen: isOpen,
               set_Recent_Recipes: handleAdd,
+              set_Response_Recipe: setResponseRecipe,
+              recent_recipe: responseRecipe,
             }}
           />
+          {/* outlet is any page in our application, so it could be Recipes, HomePage, NewRecipe,
+          RecipeDetails, ...  */}
           {/* we can pass the state RecentRecipes only if another component needs only to read it
           not updating it. Children communicate with parent using state handlers and parent
           communicate with children using props */}

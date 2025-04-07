@@ -1,15 +1,19 @@
 import { useParams } from 'react-router-dom';
 import './RecipeDetails.css';
 import { useOutletContext } from 'react-router-dom';
-import { type OutletContextType } from './NewRecipe';
+// import { type OutletContextType } from './NewRecipe';
 import { type Recipe } from '../App';
 import { useEffect, useState } from 'react';
 import Markdown from 'react-markdown';
 import { readToken } from '../data';
 
+type OutletContextType = {
+  recent_recipe: Recipe;
+};
+
 export function RecipeDetails() {
   const { recipeId } = useParams();
-  const { isopen } = useOutletContext<OutletContextType>();
+  const { recent_recipe } = useOutletContext<OutletContextType>();
   // using this state because the details are changing on the screen
   const [recipeDetail, setrecipeDetail] = useState<Recipe>();
   const [isLoading, setIsLoading] = useState(true);
@@ -71,10 +75,13 @@ export function RecipeDetails() {
 
   const { responseInstruction } = recipeDetail;
   return (
-    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    <div className="bg-img-open">
       <div className="container-new-recipe">
         <h1 className="font-recipes">Recipes:</h1>
         <Markdown>{responseInstruction}</Markdown>
+        {/* we cannot use images here because the image is not saved in database to be fetched */}
+        <img src={recent_recipe?.imageUrl} alt="recipe image" />
       </div>
     </div>
   );

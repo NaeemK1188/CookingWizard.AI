@@ -15,6 +15,7 @@ import { readToken } from '../data';
 export type OutletContextType = {
   // isopen: boolean;
   set_Recent_Recipes: (recipe: Recipe) => void;
+  set_Response_Recipe: (recipe: Recipe) => void;
   // using  (recipe: Recipe) because we are expecting to send back recipe
   // if we use only "() =>" and we are doing set_Recent_Recipes(recipe: Recipe),
   // react will give us error, expecting nothing and you are passing one argument
@@ -24,6 +25,7 @@ export function NewRecipe() {
   const {
     // isopen,
     set_Recent_Recipes,
+    set_Response_Recipe,
   } = useOutletContext<OutletContextType>();
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
@@ -38,6 +40,8 @@ export function NewRecipe() {
     setIsLoading(true);
     // setUrl(""); // it resets the url every time it calls handleSubmit
     // setImage("")
+    // resets the setResponseRecipes whenever we call handleSubmit
+    setResponseRecipe(null);
     try {
       // readToken is to make sure that if the user is already signed in and it will
       // be used in every fetch call
@@ -67,6 +71,7 @@ export function NewRecipe() {
       // {
       //   setImage(responseRecipe?.imageUrl)
       // }
+      set_Response_Recipe(recipe);
     } catch (error) {
       alert(error);
     } finally {
