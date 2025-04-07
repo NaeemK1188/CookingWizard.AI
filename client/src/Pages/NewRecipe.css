@@ -51,3 +51,12 @@
   bottom: 0;
   left: 100px;
 } */
+
+.align-text {
+  text-align: center;
+}
+
+.margin-top-new-recipe {
+  margin-top: 200px;
+  margin-left: 49px;
+}

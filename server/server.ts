@@ -161,7 +161,7 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
 
     const OpenAIResponse1 = await openai.images.generate({
       prompt: `A professional dish of ${requestIngredient} on plate, styled
-      for a cooking blog`,
+      for a cooking blog contained within the size of 512x512 image dimension`,
       n: 1,
       size: '512x512',
       response_format: 'url',

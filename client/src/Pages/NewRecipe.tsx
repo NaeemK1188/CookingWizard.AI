@@ -13,7 +13,7 @@ import { readToken } from '../data';
 // receiving the state setter set_Recent_Recipes from AppDrawer to
 // update the recentRecipe state in AppDrawer
 export type OutletContextType = {
-  isopen: boolean;
+  // isopen: boolean;
   set_Recent_Recipes: (recipe: Recipe) => void;
   // using  (recipe: Recipe) because we are expecting to send back recipe
   // if we use only "() =>" and we are doing set_Recent_Recipes(recipe: Recipe),
@@ -29,13 +29,15 @@ export function NewRecipe() {
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [url, setUrl] = useState('');
+  // const [url, setUrl] = useState("");
+  // const [image, setImage] = useState("");
   // const [error, setError] = useState<unknown>();
   let recipeText;
 
   async function handleSubmit() {
     setIsLoading(true);
-    setUrl(''); // it resets the url every time it calls handleSubmit
+    // setUrl(""); // it resets the url every time it calls handleSubmit
+    // setImage("")
     try {
       // readToken is to make sure that if the user is already signed in and it will
       // be used in every fetch call
@@ -60,7 +62,11 @@ export function NewRecipe() {
       set_Recent_Recipes(recipe); // telling parent AppDrawer about new recipe
       // Now AppDrawer knows about the new recipe and display it on screen in jsx
       // we can pass the data up to parent by using state setter functions
-      setUrl('View Image');
+      // setUrl('View Image');
+      // if (responseRecipe)
+      // {
+      //   setImage(responseRecipe?.imageUrl)
+      // }
     } catch (error) {
       alert(error);
     } finally {
@@ -75,7 +81,8 @@ export function NewRecipe() {
     setResponseRecipe(null);
     setRequestIngredient('');
     setIsSaved(false);
-    setUrl('');
+    // setUrl("");
+    // setImage("");
   }
 
   async function handleSave() {
@@ -120,12 +127,12 @@ export function NewRecipe() {
   }
 
   if (isLoading) {
-    recipeText = <div>Generating Recipe...</div>;
+    recipeText = <div className="align-text">Generating Recipe...</div>;
   } else if (responseRecipe) {
     recipeText = <Markdown>{responseRecipe.recipe}</Markdown>;
   } else if (!isLoading && !responseRecipe) {
     recipeText = (
-      <p className="font-color">
+      <p className="font-color align-text">
         Welcome to Cooking wizard AI. Enter ingredients below.....
       </p>
     );
@@ -146,26 +153,37 @@ export function NewRecipe() {
     <div className="bg-img-open">
       {/* <div className="bg-img-close"> */}
       <div className="container-new-recipe">
-        <div className="d-flex flex-dir ">
+        <div className="d-flex flex-dir margin-top-new-recipe ">
           <div className="row">
-            <div className="column-full">
-              {isSaved && (
-                <textarea
-                  placeholder="New Recipe has been added"
-                  className="popup"
+            {isSaved && (
+              <textarea
+                placeholder="New Recipe has been added"
+                className="popup"
+              />
+            )}
+            {/* recipeText is showing the response or isLoading or the default text */}
+            {!responseRecipe ? (
+              <div className="column-full">{recipeText} </div>
+            ) : (
+              <div className="column-half">{recipeText}</div>
+            )}
+            <div className="column-half">
+              {responseRecipe && (
+                <img
+                  src={responseRecipe?.imageUrl}
+                  alt="recipe image"
+                  style={{ borderRadius: '10px' }}
                 />
               )}
-              {/* recipeText is showing the response or isLoading or the default text */}
-              {recipeText}
-              <a href={responseRecipe?.imageUrl} target="_blank">
-                {url}
-              </a>
             </div>
+            {/* <a href={responseRecipe?.imageUrl} target="_blank">
+                  {url}
+                </a> */}
           </div>
           <div>
             <div className="row">
               {/*  column-full is acting as a container*/}
-              <div className="column-full sticky-bottom">
+              <div className="column-full align-text">
                 {/* textarea is acting as a row */}
                 <div>
                   {/* the value property is from what user enter in the textarea */}
