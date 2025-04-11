@@ -30,7 +30,9 @@ const uploadsStaticDir = new URL('public', import.meta.url).pathname;
 app.use(express.static(reactStaticDir));
 // Static directory for file uploads server/public/
 app.use(express.static(uploadsStaticDir));
-app.use(express.json());
+app.use(express.json({ limit: '5mb' })); // increasing limit of body request to 5mb because im using base64,
+// instead of uploading since openAI image url disappears after one hour, so im using alternative approach
+// of base64 instead of file upload using url
 
 // -------------------Actual application endpoints ------------------------------------
 
@@ -164,7 +166,8 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
       for a cooking blog contained within the size of 512x512 image dimension`,
       n: 1,
       size: '512x512',
-      response_format: 'url',
+      // response_format: 'url',
+      response_format: 'b64_json',
     });
 
     // console.log(OpenAIResponse1.data[0].url);
@@ -181,8 +184,14 @@ app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
     res.json({
       title,
       recipe: recipeResponse,
-      imageUrl: OpenAIResponse1.data[0].url,
+      // imageUrl: OpenAIResponse1.data[0].url
+      imgURL: `data:image/png;base64, ${OpenAIResponse1.data[0].b64_json}`,
     });
+    // using base64 instead of url making us able to save the image automatically without the need
+    // to use url that disappears after one hour
+    // data:image/png, this tells the browser that the image is .png type
+    // base64 and image is encoded64
+    // ${OpenAIResponse1.data[0].b64_json} will be 64 value of the image
     // here we can put "title" instead "title:title"
     // we need to use the same naming of variables in the front end
     // output in the third terminal where we are using httpie POST request
@@ -212,14 +221,14 @@ app.get('/api/recipes', authMiddleware, async (req, res, next) => {
     // if we use [req.user?.userId ?? 3], it will output ClientError(404, 'No recipes are available')
     const params = [req.user?.userId];
     const result = await db.query(sql, params);
-    const recipes = result.rows;
+    const recipes = result.rows; // why its not rows[0] ?
     // if the recipes array of object recipe is empty
     if (!recipes.length) {
       // if recipes do not exist for certain user
       throw new ClientError(404, 'No recipes are available');
     }
 
-    res.json(recipes);
+    res.json(recipes); // sending back everything to back end
   } catch (error) {
     next(error);
   }
@@ -262,13 +271,20 @@ app.post('/api/recipes', authMiddleware, async (req, res, next) => {
   try {
     // we don't need to include userId for security reasons, and it should come from
     // from authMiddleware using req.user?.userId
-    const { responseTitle, requestIngredient, responseInstruction } = req.body;
-    if (!responseTitle || !requestIngredient || !responseInstruction) {
+    // here its like req.body.imgURL
+    const { responseTitle, requestIngredient, responseInstruction, imgURL } =
+      req.body;
+    if (
+      !responseTitle ||
+      !requestIngredient ||
+      !responseInstruction ||
+      !imgURL
+    ) {
       throw new ClientError(400, "Missing request's body");
     }
-    const sql = `insert into "Recipes" ("responseTitle", "requestIngredient", "responseInstruction", "userId")
-                 values ($1, $2, $3, $4)
-                 returning *`;
+    const sql = `insert into "Recipes" ("responseTitle", "requestIngredient", "responseInstruction", "imgURL", "userId")
+                 values ($1, $2, $3, $4, $5)
+                 returning *`; // returning everything to front end, which its in our res.json() ?
     // req.user?.userId or .user?.userId comes from authMiddleware
 
     // testing users when we don't have sign in sign up ready
@@ -278,6 +294,7 @@ app.post('/api/recipes', authMiddleware, async (req, res, next) => {
       responseTitle,
       requestIngredient,
       responseInstruction,
+      imgURL,
       req.user?.userId,
     ];
     const result = await db.query(sql, params);

@@ -18,8 +18,8 @@ CREATE TABLE "Recipes" (
   "userId" int NOT NULL,
   "responseTitle" text NOT NULL,
   "requestIngredient" text NOT NULL,
-  "responseInstruction" text NOT NULL
+  "responseInstruction" text NOT NULL,
+  "imgURL" text NOT NULL
 );
 
 ALTER TABLE "Recipes" ADD FOREIGN KEY ("userId") REFERENCES "Users" ("userId");
-

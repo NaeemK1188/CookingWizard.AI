@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom';
 import './Recipes.css';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { type OutletContextType } from './NewRecipe';
-import { useOutletContext } from 'react-router-dom';
+// import { type OutletContextType } from './NewRecipe';
+// import { useOutletContext } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { type Recipe } from '../App';
 import { readToken } from '../data';
+import { useUser } from './useUser';
 
 export function Recipes() {
-  const { isopen } = useOutletContext<OutletContextType>();
+  // const { isopen } = useOutletContext<OutletContextType>();
   const [newRecipes, setNewRecipes] = useState<Recipe[]>([]);
   const [error, setError] = useState<unknown>();
   const [isLoading, setIsLoading] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
     async function loadRecipes() {
+      if (user?.username === 'guest') {
+        setNewRecipes([]);
+        setIsLoading(false);
+        return;
+      }
+
       try {
         const bear = readToken();
         const request = {
@@ -39,7 +47,7 @@ export function Recipes() {
     }
     setIsLoading(true); // or at the top of useEffect()
     loadRecipes();
-  }, []);
+  }, [user]);
 
   async function handleDelete(recipeId: number) {
     try {
@@ -86,13 +94,15 @@ export function Recipes() {
 
   console.log('newRecipes', newRecipes);
   return (
-    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    <div className="bg-img-open">
       <div className="container-new-recipe">
         <div className="row">
           <h1 className="font-recipes">Recipes:</h1>
         </div>
         <div className="row">
           <div className="column-full">
+            {/* this && operator doesn't let any guest to see their generated recipes  */}
+            {/* {(user && user.username !== "guest") && newRecipes.map((newRecipe, index) => ( */}
             {newRecipes.map((newRecipe, index) => (
               // div here is parent container and its children: Link, RiDeleteBin6Line icon
               <div key={newRecipe.recipeId} className="d-flex justify-around ">

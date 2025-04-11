@@ -23,17 +23,40 @@ export function AppDrawer() {
   let menuName = '';
   let signIn = '';
   // we can see here that the responseRecipe got updated with the new recipe from newRecipe
-  console.log('responseRecipe in AppDrawer:', responseRecipe?.imageUrl);
+  console.log('responseRecipe in AppDrawer:', responseRecipe?.imgURL);
 
   // first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
   // if/else with the new values that will change the UI
   // solve the issue of the infinite re-render, because we cannot use stateSetter() in the jsx
-  // and also it trigger thr re -render whenever the user changes not on every re-render scheduled
+  // and also it trigger the re-render whenever the user changes not on every re-render scheduled
   useEffect(() => {
     if (!user) {
+      // useEffect here is responsible for clearing recent recipes on signout only
+      //not for managing UI logic
       setRecentRecipes([]);
     }
+
+    // else if (isOpen == false)DO NOT clear recentRecipes when the drawer is closed,
+    // because the data should stay in memory (in state) — just hidden visually.
+    // {
+    //   setRecentRecipes([]); // causing to reset, so closing and opening again to not see recipes
+    // }
+
+    // else if (isOpen === true) causing infinite loop
+    // {
+
+    //      setRecentRecipes(recentRecipes?.filter((recipe) => recipe.userId === user.userId).map((recentRecipe, index) => (
+    //       <div key={index}>
+    //         <h5>
+    //           {index + 1}. {recentRecipe.title}
+    //         </h5>
+    //       </div> )))
+
+    // } getting infinite loop because we are using jsx inside setRecentRecipe or using jsx, where we need to only see
+    //object where setRecentrecipe(expects, title:"R1", userId:123)
+    // weare watching recentRecipes as a dependency, and inside this effect you're also modifying recentRecipes.
+    // which causes an infinite loop
   }, [user]); // it runs whenever the user changes
 
   function handleDrawer() {
@@ -60,28 +83,29 @@ export function AppDrawer() {
   if (isOpen === true && !user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
-    menuName = ' Recent Recipes:';
+    menuName = 'Recent Recipes:';
+
     // setRecentRecipes(null);
 
     // signIn = 'not signed in';
   } else if (isOpen === true && user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
-    menuName = ' Recent Recipes:';
+    menuName = 'Recent Recipes:';
     signIn = `Signed in as ${user.username.toLocaleUpperCase()}`;
   } else if (isOpen === false) {
     is_Open = 'is-close';
     headingText = '';
     menuName = '';
     signIn = '';
+    // to many re-renders
+    // setRecentRecipes([]);
   }
-
   // const noUser = !user ? <div>Some text</div> : <div>Some other thing</div>
   // the component has to be used inside the return so it return something
   // this component is just being called, but not returning anything although
   // the NewRecipe jsx has a return, but here its not placed inside a return
   // <NewRecipe isopen={isOpen}/>;
-
   return (
     <>
       <header>
@@ -154,9 +178,15 @@ export function AppDrawer() {
                   <h4>{menuName}</h4>
                   {/* checks if the userId in Recipes table equals the userId in Users table
                   or if its the same user generating the  */}
+                  {/* this is th right way to do it because it will expose every user data
+                  instead doing it as a an endpoint */}
+                  {/* on jsx we remove UI elements visually, but they still exist */}
+                  {/* doing this method when we are not relying on api fetch */}
+                  {/* the api end point can do the same filtering and its not exposing the entire data */}
                   {user &&
+                    isOpen &&
                     recentRecipes
-                      .filter((recipe) => recipe.userId === user.userId)
+                      ?.filter((recipe) => recipe.userId === user.userId)
                       .map((recentRecipe, index) => (
                         <div key={index}>
                           <h5>

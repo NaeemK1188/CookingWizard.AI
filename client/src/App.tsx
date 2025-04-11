@@ -24,7 +24,7 @@ export type Recipe = {
   responseInstruction: string;
   recipe: string; // same  variable naming to what in the post request response in openAI endpoint in res.json
   title: string; // same variable naming to what in the post request response in openAI endpoint in res.json
-  imageUrl: string;
+  imgURL: string; // from the node.js(server.ts) which has to be the same exact variable name
 };
 
 export default function App() {

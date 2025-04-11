@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { type OutletContextType } from './NewRecipe';
-import { useOutletContext } from 'react-router-dom';
+// import { type OutletContextType } from './NewRecipe';
+// import { useOutletContext } from 'react-router-dom';
 import './RegistrationForm.css';
 
 // userId: number username: string are from the returned json from sign-up endpoint
@@ -13,7 +13,7 @@ export type User = {
 
 // its the auth/sign-up endpoint
 export function RegistrationForm() {
-  const { isopen } = useOutletContext<OutletContextType>();
+  // const { isopen } = useOutletContext<OutletContextType>();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate(); // to navigate like creating a Link tag, but outside jsx
 
@@ -53,7 +53,7 @@ export function RegistrationForm() {
 
   return (
     // unnecessary since the aside bar has been fixed ternary statement. Just use bg-img-open
-    <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
+    <div className="bg-img-open">
       <div className="container-register">
         <div className="row">
           <div className="column-full">

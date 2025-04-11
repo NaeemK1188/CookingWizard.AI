@@ -25,7 +25,7 @@ export function NewRecipe() {
   const {
     // isopen,
     set_Recent_Recipes,
-    set_Response_Recipe,
+    // set_Response_Recipe,
   } = useOutletContext<OutletContextType>();
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
@@ -61,8 +61,10 @@ export function NewRecipe() {
       if (!response.ok) {
         throw new Error(`fetch ERROR ${response.status}`);
       }
-      const recipe = (await response.json()) as Recipe; // we are receiving an object back from the server(recipe,title)
-      setResponseRecipe(recipe); // updating the recipe's object
+      const recipe = (await response.json()) as Recipe; // we are receiving an object with properties
+      //  back from the server(recipe,title)
+      setResponseRecipe(recipe); // updating the recipe's object properties recipe, title
+      //which must have the same variable names from the server.ts in /new-recipe endpoints
       set_Recent_Recipes(recipe); // telling parent AppDrawer about new recipe
       // Now AppDrawer knows about the new recipe and display it on screen in jsx
       // we can pass the data up to parent by using state setter functions
@@ -71,7 +73,9 @@ export function NewRecipe() {
       // {
       //   setImage(responseRecipe?.imageUrl)
       // }
-      set_Response_Recipe(recipe);
+      // we cam see the image im RecipeDetails because we are responding in imageUrl from the
+      // newRecipe end point
+      //set_Response_Recipe(recipe); // the image is the same for all recipes #bug not fixed
     } catch (error) {
       alert(error);
     } finally {
@@ -106,16 +110,31 @@ export function NewRecipe() {
           responseTitle: responseRecipe?.title,
           requestIngredient,
           responseInstruction: responseRecipe?.recipe,
+          imgURL: responseRecipe?.imgURL,
         }),
+        // here it worked .title and .recipe because in submit using /new-recipe endpoint, im responding
+        // with properties title and recipe, so it updates the
       };
 
       // to see what im sending
       console.log('sending', {
-        responseTitle: responseRecipe?.responseTitle,
+        responseTitle: responseRecipe?.title,
         requestIngredient,
-        responseInstruction: responseRecipe?.responseInstruction,
+        responseInstruction: responseRecipe?.recipe,
+        imageURL: responseRecipe?.imgURL,
       });
       const response1 = await fetch('/api/recipes', request1);
+      const recipe = (await response1.json()) as Recipe;
+      console.log('recipe at handleSave', recipe.imgURL);
+      // not getting the image because we are not receiving imageUrl from the
+      // recipes end point
+      //set_Response_Recipe(recipe);
+      // console.log("recipe title after fetch /recipes", recipe.responseTitle);
+      // console.log('recipe title after fetch /new-Recipe', recipe.title);
+      // console.log("recipe instruction after fetch /recipes", recipe.responseInstruction);
+      // console.log("recipe instruction after fetch /new-Recipes", recipe.recipe); //undefined because
+      // // the server is responding with * after selecting everything from the table, and the table
+      // // only has the the properties responseInstruction and responseTitle not title or recipe
 
       if (!response1.ok) {
         throw new Error(`fetch ERROR ${response1.status}`);
@@ -175,7 +194,7 @@ export function NewRecipe() {
             <div className="column-half">
               {responseRecipe && (
                 <img
-                  src={responseRecipe?.imageUrl}
+                  src={responseRecipe?.imgURL}
                   alt="recipe image"
                   style={{ borderRadius: '10px' }}
                 />
