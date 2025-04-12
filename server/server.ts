@@ -65,6 +65,13 @@ app.post('/api/auth/sign-up', async (req, res, next) => {
 // why userId is included in sql query because its a unique identifier for each user
 // in database and because its used as a foreign key in Recipes table
 app.post('/api/auth/sign-in', async (req, res, next) => {
+  // what is happening here in this end-point, when user click sign in in front-end, it make
+  // fetch request to this end-point by sending the body request :username and password
+  // this endpoint gets the the body, then checks if the body missing any contents
+  // if the body request correct, it initiates sql query to get the requested information to
+  // the front end. if the user does not exists, it throws an error, and if the password or username
+  // are wrong, it throws an error
+  // if its valid, it generate token for the user that exists in the database
   try {
     // or using const { username, password } = req.body as Partial<Auth>;
     // partial makes fields of <Auth> object optional
@@ -103,6 +110,8 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     }
 
     // we need to select username too in order to display it in the response json
+    // what we are selecting, what will be in the res.json() to front end fetch
+    // so front end can access these properties
     const sql = `select "userId", "username", "hashedPassword"
                  from "Users"
                  where "username" = $1;`; // sql query selected "userId", "username", and "hashedPassword"
@@ -110,9 +119,11 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
     const result = await db.query(sql, params);
     const user = result.rows[0];
     if (!user) {
+      // the error user not exists or invalid login information
       throw new ClientError(401, 'invalid login information');
     }
     const isPassValid = await argon2.verify(user.hashedPassword, password);
+
     if (!isPassValid) {
       throw new ClientError(401, 'invalid login password');
     }
@@ -124,7 +135,19 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
         userId: user.userId,
         username: user.username,
       };
-
+      // resets the guest after getting verified because only using state in front end
+      // wont delete the recipes after logging in because the database has the data, not
+      // the front end which using state that only controls display, but the data
+      // still exists. So, we need to delete it from backend here
+      // now everytime guest user log in it deletes all recipes automatically
+      if (user.username === 'guest') {
+        const deleteSql = `delete from "Recipes"
+                          where "userId" = $1`;
+        const params = [user.userId]; // this user.userId is from the query or database not yet authenticated
+        // so we cannot use req.user?.userId because we dont have the token yet, and we can see that, we dont have
+        // the authmiddleware attached at the top
+        await db.query(deleteSql, params); // here we are just sending query to database not storing any value
+      }
       const token = jwt.sign(payload, hashKey); // creating a token to us after sign in
       res.status(200).json({ user: payload, token }); // token:token
       // on client side we will be getting user and token as a response
@@ -136,6 +159,10 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
 });
 
 // we can call the endpoint anything
+// we use authmiddleware because we need to verify the token after signing in
+// because this end point requires authentication for the user
+// which is used in post, get, and delete requests for a user that has
+// a token
 app.post('/api/new-recipe', authMiddleware, async (req, res, next) => {
   try {
     const { requestIngredient } = req.body;
@@ -251,6 +278,7 @@ app.get('/api/recipes/:recipeId', authMiddleware, async (req, res, next) => {
     // always query for userId 1 or use 2 with /api/recipes/3, it will output recipeId 3 for userId 2
     // if [recipeId, req.user?.userId ?? 2] and http localhost:8080/api/recipes/2, it will output
     // only recipeId 2 for userId 2 not all recipes
+    // we user req.user?.userId to verify that the user has the token
     const params = [recipeId, req.user?.userId];
     const result = await db.query(sql, params);
     const recipe = result.rows[0];

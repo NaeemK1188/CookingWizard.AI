@@ -18,11 +18,12 @@ export function Recipes() {
 
   useEffect(() => {
     async function loadRecipes() {
-      if (user?.username === 'guest') {
-        setNewRecipes([]);
-        setIsLoading(false);
-        return;
-      }
+      // if (user?.username === 'guest')
+      // {
+      //   setNewRecipes([]);
+      //   setIsLoading(false);
+      //   return;
+      // }
 
       try {
         const bear = readToken();
@@ -84,11 +85,26 @@ export function Recipes() {
   }
 
   if (error) {
+    // note, when having an error by using only
+    // return ( {user && <div> error <div> }) here we are returning javascript object inside parenthesis (), not
+    // a valid jsx inside return statement. This () expects a single jsx element, not a {} javascript expression
+    // to fix it we need to make it jsx by adding <> </> or <div>
+    // by using return (<div> {user && <p> error </p>} </div>)
     return (
-      <div>
-        Error Loading Recipes: please sign in or sign up {''}.
-        {error instanceof Error ? error.message : 'Unknown Error'}
-      </div>
+      <>
+        {user && (
+          <div>
+            Error Loading Recipes: you dont have any recipes yet {''}.
+            {error instanceof Error ? error.message : 'Unknown Error'}
+          </div>
+        )}
+        {!user && (
+          <div>
+            Error Loading Recipes: please sign in or sign up {''}.
+            {error instanceof Error ? error.message : 'Unknown Error'}
+          </div>
+        )}
+      </>
     );
   }
 
