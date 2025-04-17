@@ -34,6 +34,13 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.container-Recipes {
+  position: absolute;
+  top: 23%;
+  left: 14.1%;
+  width: 67%;
+}
+
 .modal {
   height: 160px;
   width: 400px;

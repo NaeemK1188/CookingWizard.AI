@@ -22,6 +22,7 @@ export function AppDrawer() {
   let is_Open = '';
   let menuName = '';
   let signIn = '';
+
   // we can see here that the responseRecipe got updated with the new recipe from newRecipe
   console.log('responseRecipe in AppDrawer:', responseRecipe?.imgURL);
 
@@ -83,7 +84,7 @@ export function AppDrawer() {
   if (isOpen === true && !user) {
     is_Open = 'is-open';
     headingText = 'Cooking Wizard';
-    menuName = 'Recent Recipes:';
+    // menuName = 'Recent Recipes:';
 
     // setRecentRecipes(null);
 
@@ -176,6 +177,7 @@ export function AppDrawer() {
               <li className="recent-items">
                 <>
                   <h4>{menuName}</h4>
+
                   {/* checks if the userId in Recipes table equals the userId in Users table
                   or if its the same user generating the  */}
                   {/* this is th right way to do it because it will expose every user data
@@ -183,6 +185,8 @@ export function AppDrawer() {
                   {/* on jsx we remove UI elements visually, but they still exist */}
                   {/* doing this method when we are not relying on api fetch */}
                   {/* the api end point can do the same filtering and its not exposing the entire data */}
+                  {/* '(user && isOpen) &&' is one conditional statement, and the code executed after it is
+                  recentRecipes?.filter((recipe) => recipe.userId.......*/}
                   {user &&
                     isOpen &&
                     recentRecipes
@@ -194,6 +198,10 @@ export function AppDrawer() {
                           </h5>
                         </div>
                       ))}
+                  {user && recentRecipes.length === 0 && isOpen === true && (
+                    <p>you don't have any recent search</p>
+                  )}
+
                   {/* causing infinite re-renders when setting the state inside the jsx(return ()) */}
                   {/* {!user && setRecentRecipes([])} */}
                   {/* has to have recipes after saving recent recipes and when refresh, they disappear */}

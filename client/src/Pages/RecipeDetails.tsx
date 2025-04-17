@@ -84,9 +84,19 @@ export function RecipeDetails() {
         {recipeDetail.userId === user?.userId && (
           <>
             <h1 className="font-recipes">Recipes:</h1>
-            <Markdown>{responseInstruction}</Markdown>
-            {/* we cannot use images here because the image is not saved in database to be fetched */}
-            <img src={imgURL} alt="recipe image" />
+            <div className="row">
+              <div className="column-half">
+                <Markdown>{responseInstruction}</Markdown>
+              </div>
+              {/* we cannot use images here because the image is not saved in database to be fetched */}
+              <div className="column-half">
+                <img
+                  src={imgURL}
+                  alt="recipe image"
+                  style={{ borderRadius: '15px' }}
+                />
+              </div>
+            </div>
           </>
         )}
       </div>

@@ -75,7 +75,7 @@ export function SignInForm() {
   return (
     // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
     <div className="bg-img-open">
-      <div className="container-register">
+      <div className="container-SignIn">
         <div className="row">
           <div className="column-full">
             <h2 className="h2-register">Sign In</h2>
@@ -83,7 +83,7 @@ export function SignInForm() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="column-full d-flex flex-column add-margin">
+            <div className="d-flex flex-column">
               <label className="add-padding">
                 Username&nbsp;
                 <input name="username" type="text" />

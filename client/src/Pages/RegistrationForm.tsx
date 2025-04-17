@@ -54,7 +54,7 @@ export function RegistrationForm() {
   return (
     // unnecessary since the aside bar has been fixed ternary statement. Just use bg-img-open
     <div className="bg-img-open">
-      <div className="container-register">
+      <div className="container-SignIn">
         <div className="row">
           <div className="column-full">
             <h2 className="h2-register">Register</h2>

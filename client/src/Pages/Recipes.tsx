@@ -111,59 +111,63 @@ export function Recipes() {
   console.log('newRecipes', newRecipes);
   return (
     <div className="bg-img-open">
-      <div className="container-new-recipe">
-        <div className="row">
-          <h1 className="font-recipes">Recipes:</h1>
-        </div>
-        <div className="row">
-          <div className="column-full">
-            {/* this && operator doesn't let any guest to see their generated recipes  */}
-            {/* {(user && user.username !== "guest") && newRecipes.map((newRecipe, index) => ( */}
-            {newRecipes.map((newRecipe, index) => (
-              // div here is parent container and its children: Link, RiDeleteBin6Line icon
-              <div key={newRecipe.recipeId} className="d-flex justify-around ">
-                <Link
-                  to={`/recipes/${newRecipe.recipeId}`}
-                  className="menu-link-recipes">
-                  <h3 className="h3-recipes">
-                    {/* newRecipe.responseTitle here the responseTitle has to match what in the Recipes table
-                    where each newRecipes row has a property responseTitle */}
-                    {index + 1}. {newRecipe.responseTitle}
-                  </h3>
-                </Link>
-                {/* we are using arrow function to pass the handleDelete the recipeId that has to be deleted from the recipes list */}
-                {/* its only getting deleted when we refresh the page which is deleting from the database. we need to deleted from react
-                which is getting deleted without refreshing the page  */}
-                {/* testing deleting immediately without a model */}
-                <RiDeleteBin6Line
-                  size={25}
-                  className="add-margin-recipes"
-                  onClick={() => setIsDeleting(true)}
-                />
-                {isDeleting && (
-                  <div className="modal-container d-flex justify-center align-center">
-                    <div className="modal row">
-                      <div className="column-full d-flex justify-center">
-                        <p>Are you sure you want to delete this recipe?</p>
-                      </div>
-                      <div className="column-full d-flex  justify-between">
-                        <button
-                          className="modal-button clicked-btn"
-                          onClick={() => setIsDeleting(false)}>
-                          Cancel
-                        </button>
-                        {/* pass recipeId in newRecipes[index].recipeId */}
-                        <button
-                          className="modal-button red-background white-text"
-                          onClick={() => handleDelete(newRecipe.recipeId)}>
-                          Confirm
-                        </button>
+      <div className="container-Recipes">
+        <div className="h3-recipes">
+          <div className="row">
+            <h1 className="font-recipes">Recipes:</h1>
+          </div>
+          <div className="row">
+            <div className="column-full">
+              {/* this && operator doesn't let any guest to see their generated recipes  */}
+              {/* {(user && user.username !== "guest") && newRecipes.map((newRecipe, index) => ( */}
+              {newRecipes.map((newRecipe, index) => (
+                // div here is parent container and its children: Link, RiDeleteBin6Line icon
+                <div
+                  key={newRecipe.recipeId}
+                  className="d-flex justify-around ">
+                  <Link
+                    to={`/recipes/${newRecipe.recipeId}`}
+                    className="menu-link-recipes">
+                    <h3 className="h3-recipes">
+                      {/* newRecipe.responseTitle here the responseTitle has to match what in the Recipes table
+                      where each newRecipes row has a property responseTitle */}
+                      {index + 1}. {newRecipe.responseTitle}
+                    </h3>
+                  </Link>
+                  {/* we are using arrow function to pass the handleDelete the recipeId that has to be deleted from the recipes list */}
+                  {/* its only getting deleted when we refresh the page which is deleting from the database. we need to deleted from react
+                  which is getting deleted without refreshing the page  */}
+                  {/* testing deleting immediately without a model */}
+                  <RiDeleteBin6Line
+                    size={25}
+                    className="add-margin-recipes"
+                    onClick={() => setIsDeleting(true)}
+                  />
+                  {isDeleting && (
+                    <div className="modal-container d-flex justify-center align-center">
+                      <div className="modal row">
+                        <div className="column-full d-flex justify-center">
+                          <p>Are you sure you want to delete this recipe?</p>
+                        </div>
+                        <div className="column-full d-flex  justify-between">
+                          <button
+                            className="modal-button clicked-btn"
+                            onClick={() => setIsDeleting(false)}>
+                            Cancel
+                          </button>
+                          {/* pass recipeId in newRecipes[index].recipeId */}
+                          <button
+                            className="modal-button red-background white-text"
+                            onClick={() => handleDelete(newRecipe.recipeId)}>
+                            Confirm
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
