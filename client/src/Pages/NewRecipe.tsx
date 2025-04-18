@@ -194,6 +194,7 @@ export function NewRecipe() {
             <div className="column-half">
               {responseRecipe && (
                 <img
+                  className="img-recipe"
                   src={responseRecipe?.imgURL}
                   alt="recipe image"
                   style={{ borderRadius: '10px' }}

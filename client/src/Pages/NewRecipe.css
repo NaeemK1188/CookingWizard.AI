@@ -60,3 +60,16 @@
   margin-top: 200px;
   margin-left: 49px;
 }
+
+@media screen and (width < 480px) {
+  .img-recipe {
+    width: 70%;
+  }
+
+  .container-new-recipe {
+    position: absolute;
+    top: 6%;
+    left: -5%;
+    width: 110%;
+  }
+}

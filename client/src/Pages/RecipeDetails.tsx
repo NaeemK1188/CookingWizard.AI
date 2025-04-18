@@ -91,6 +91,7 @@ export function RecipeDetails() {
               {/* we cannot use images here because the image is not saved in database to be fetched */}
               <div className="column-half">
                 <img
+                  className="img-recipe"
                   src={imgURL}
                   alt="recipe image"
                   style={{ borderRadius: '15px' }}

@@ -69,3 +69,12 @@
   position: relative;
   top: 3px;
 }
+
+@media screen and (width < 480px) {
+  .container-Recipes {
+    position: absolute;
+    top: 23%;
+    left: -9%;
+    width: 108.6%;
+  }
+}

@@ -113,4 +113,13 @@
 
 /* when two items in one row each will take half the row */
 
-/* when we have five elements in one row */
+/* when we have five elements in one row, it will be column-fifth or five elements in one row */
+
+@media screen and (width < 480px) {
+  .container-page {
+    position: absolute;
+    top: 5%;
+    left: -2%;
+    width: 100%;
+  }
+}

@@ -16,3 +16,9 @@
 .margin-top-home {
   margin-top: 200px;
 }
+
+@media screen and (width < 480px) {
+  .text-alignmnt {
+    font-size: 28px;
+  }
+}

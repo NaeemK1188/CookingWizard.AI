@@ -60,6 +60,12 @@ export function AppDrawer() {
     // which causes an infinite loop
   }, [user]); // it runs whenever the user changes
 
+  function handleLinkClick() {
+    if (window.innerWidth < 480) {
+      setIsOpen(false);
+    }
+  }
+
   function handleDrawer() {
     if (isOpen === true) {
       setIsOpen(false);
@@ -144,7 +150,10 @@ export function AppDrawer() {
             <h3 className="menu-heading">{headingText}</h3>
             <ul className="menu-items">
               <li className="menu-item">
-                <NavLink to="/new-recipe" className="menu-link">
+                <NavLink
+                  to="/new-recipe"
+                  className="menu-link"
+                  onClick={handleLinkClick}>
                   <img
                     src="/pan-resized-removebg-preview.png"
                     alt="pan"
@@ -154,7 +163,10 @@ export function AppDrawer() {
                 </NavLink>
               </li>
               <li className="menu-item">
-                <NavLink to="/recipes" className="menu-link">
+                <NavLink
+                  to="/recipes"
+                  className="menu-link"
+                  onClick={handleLinkClick}>
                   <img
                     src="/noodlesIcon-resized-removebg-preview.png"
                     alt="noodles"
@@ -164,7 +176,7 @@ export function AppDrawer() {
                 </NavLink>
               </li>
               <li className="menu-item">
-                <NavLink to="/" className="menu-link">
+                <NavLink to="/" className="menu-link" onClick={handleLinkClick}>
                   <img
                     src="/resized-recipe-removebg-preview.png"
                     alt="recipe"
@@ -201,7 +213,6 @@ export function AppDrawer() {
                   {user && recentRecipes.length === 0 && isOpen === true && (
                     <p>you don't have any recent search</p>
                   )}
-
                   {/* causing infinite re-renders when setting the state inside the jsx(return ()) */}
                   {/* {!user && setRecentRecipes([])} */}
                   {/* has to have recipes after saving recent recipes and when refresh, they disappear */}

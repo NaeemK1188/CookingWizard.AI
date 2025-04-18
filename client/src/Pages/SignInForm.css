@@ -4,3 +4,12 @@
   left: 30.1%;
   width: 40%;
 }
+
+@media screen and (width < 480px) {
+  .container-SignIn {
+    position: absolute;
+    top: 23%;
+    left: 20%;
+    width: 80%;
+  }
+}
