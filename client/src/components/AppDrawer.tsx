@@ -231,22 +231,31 @@ export function AppDrawer() {
                     we are using navigate because its button not a text with text use Link tag */}
                       <button
                         className="btn-style"
-                        onClick={() => navigate('/auth/sign-in')}>
+                        onClick={() => {
+                          navigate('/auth/sign-in');
+                          setIsOpen(false);
+                        }}>
                         Sign in
                       </button>
                       <button
                         className="btn-style"
-                        onClick={() => navigate('/auth/sign-up')}>
+                        onClick={() => {
+                          navigate('/auth/sign-up');
+                          setIsOpen(false);
+                        }}>
                         Sign up
                       </button>
                     </>
                   )}
+                  {/* doing many functions in single click, handling signout first, then navigating to signin page,
+                  and finally closing the drawer */}
                   {user && (
                     <button
                       className="btn-style"
                       onClick={() => {
                         handleSignOut();
                         navigate('/auth/sign-in');
+                        setIsOpen(false);
                       }}>
                       Sign out
                     </button>
