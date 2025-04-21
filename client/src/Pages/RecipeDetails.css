@@ -10,3 +10,33 @@
   margin-left: 30px;
   margin-top: 100px;
 }
+
+@media screen and (width < 480px) {
+  .phone-container {
+    padding: 10px;
+  }
+
+  .phone-font-recipes {
+    font-size: xxx-large;
+  }
+
+  .phone-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .phone-col-half {
+    width: 50%;
+  }
+
+  .phone-img-recipe {
+    width: 100%;
+  }
+
+  /* or use height to fix the desktop height to be compatible
+  with phone display */
+  .phone-menu-drawer {
+    aspect-ratio: 430 / 932;
+    min-height: 100vh;
+  }
+}

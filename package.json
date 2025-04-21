@@ -50,6 +50,7 @@
     "typescript": "^5.4.3"
   },
   "dependencies": {
-    "openai": "^4.87.3"
+    "openai": "^4.87.3",
+    "react-responsive": "^10.0.1"
   }
 }

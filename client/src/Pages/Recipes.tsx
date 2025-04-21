@@ -16,6 +16,8 @@ export function Recipes() {
   const [isDeleting, setIsDeleting] = useState(false);
   const { user } = useUser();
 
+  // we need to laod the recipes as soon as i click on the page recipe i wanna
+  // see the page contents as soon as i moved to different page without iny button click
   useEffect(() => {
     async function loadRecipes() {
       // if (user?.username === 'guest')

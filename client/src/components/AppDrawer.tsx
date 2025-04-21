@@ -17,7 +17,8 @@ export function AppDrawer() {
   const [recentRecipes, setRecentRecipes] = useState<Recipe[]>([]);
   const { user, handleSignOut } = useUser(); // creating custom hook and we destructuring from it user
   // and handleSignOut props in UserContext.tsx
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // we are assigning function useNavigate to it, so it becomes
+  // navigate() now
   let headingText = '';
   let is_Open = '';
   let menuName = '';
@@ -25,12 +26,20 @@ export function AppDrawer() {
 
   // we can see here that the responseRecipe got updated with the new recipe from newRecipe
   console.log('responseRecipe in AppDrawer:', responseRecipe?.imgURL);
-
-  // first when its clicked, we change the state or add the change to event loop, then after
+  // console.log('handleSignOut returns ', handleSignOut); // here im always signing out even with console log when
+  // its handleSignOut(), but when its ,handleSignOut in console log, it only logs out when ist clicked and also
+  // with () => handleSignOut()
+  // so  console.log('handleSignOut returns ', () =>  handleSignOut()) and  console.log('handleSignOut returns ', handleSignOut)
+  // are arrow function or async functions that on run when the button is clicked not like
+  // handleSignOut() with console log that calls the signout immediately without clicking the button
+  // signout
+  //  first when its clicked, we change the state or add the change to event loop, then after
   // reading the entire component, and we check the event loop, we find new value of the isOpen, then we read the
   // if/else with the new values that will change the UI
   // solve the issue of the infinite re-render, because we cannot use stateSetter() in the jsx
   // and also it trigger the re-render whenever the user changes not on every re-render scheduled
+  // nothing pops out when its not user or we reset the setRecentRecipes without any click events
+  // it runs as soon as the application renders
   useEffect(() => {
     if (!user) {
       // useEffect here is responsible for clearing recent recipes on signout only
@@ -60,6 +69,10 @@ export function AppDrawer() {
     // which causes an infinite loop
   }, [user]); // it runs whenever the user changes
 
+  // when its clicked(the NewRecipe, your Recipe, or Home ) the eventListener,
+  // calls the function handleLinkClick that will check if its window is less 480 width
+  // and if its, it closes drawer using state setter
+  // like button.addEventListener("click", handleLinkClick)
   function handleLinkClick() {
     if (window.innerWidth < 480) {
       setIsOpen(false);
@@ -189,7 +202,6 @@ export function AppDrawer() {
               <li className="recent-items">
                 <>
                   <h4>{menuName}</h4>
-
                   {/* checks if the userId in Recipes table equals the userId in Users table
                   or if its the same user generating the  */}
                   {/* this is th right way to do it because it will expose every user data
@@ -249,6 +261,9 @@ export function AppDrawer() {
                   )}
                   {/* doing many functions in single click, handling signout first, then navigating to signin page,
                   and finally closing the drawer */}
+                  {/* button here on the click, it calls signout function, goes to sign-in page and
+                  set setIsOpen to false or close the side drawer when the signout is clicked
+                  The setIsOpen changes the value of the state to false*/}
                   {user && (
                     <button
                       className="btn-style"
@@ -257,6 +272,14 @@ export function AppDrawer() {
                         navigate('/auth/sign-in');
                         setIsOpen(false);
                       }}>
+                      {/* {() => {handleSignOut(); is like () => handleOnClick(). The { } at the beginning of these functions call
+                      is the function wrapper that delays the execution of these functions until the button is clicked.
+                      So, when its only  onClick={handleSignOut} its just passing the reference of the function not calling it
+                      when the jsx renders on screen, its just runs when the button is clicked however when its
+                      onClick={handleSignOut()} its calling the function immediately on jsx where it runs without the click
+                      although its inside onClick and the result is assigned to onclick
+                      Note, we can use handleSignOut or () => handleSignOut() inside the function wrapper
+                      that executes in sequence */}
                       Sign out
                     </button>
                   )}
