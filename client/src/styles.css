@@ -30,22 +30,11 @@ header {
 .menu-drawer {
   background-image: url('/Orange and Yellow Modern Illustrative Asian Cooking Class Google Classroom Header (2).png');
   width: 4rem;
-
-  /* causes the menu drawer height to be always taking the whole height of the page in
-  both displays in phone and desktop */
   min-height: 100vh;
   padding-top: 1rem;
-
-  /* background-color: rgb(255, 255, 255); */
-
-  /* box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45); */
-
-  /* transition gradually change from one state to another  */
-
   transition: width 0.2s ease-in-out;
 }
 
-/* applying both class like <div className="menu-drawer is-Open"> */
 .is-open {
   width: 15rem;
 }
@@ -106,8 +95,6 @@ header {
   width: 4.1rem;
   margin: 0.3rem;
   display: inline-block;
-
-  /* adding height because the image of the pan is stretched on aside navbar */
   height: 1%;
 }
 
@@ -133,7 +120,6 @@ header {
   cursor: pointer;
 }
 
-/* to revert to old setup in case the new setup is not good */
 .bg-img-close {
   background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
   background-size: cover;
@@ -142,30 +128,11 @@ header {
   min-height: 100vh;
   text-align: center;
   flex-direction: column;
-
-  /* not flex box property */
   align-content: center;
 }
 
-/* .bg-img-open {
-  background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
-  text-align: center;
-  flex-direction: column; */
-
-/* not flex box property */
-
-/* align-content: center;
-} */
-
-/* making the background using the whole background image in the url */
 .bg-img-open {
   position: relative;
-
-  /* making the image taking the whole width of its parent which is the body */
   width: 100%;
   aspect-ratio: 1414 / 2000;
   background-image: url('/Black Minimalist Recipes Paper A4 Document.png');
@@ -179,57 +146,16 @@ header {
 }
 
 @media screen and (width < 480px) {
-  /* although there is a height, it gets hidden by the overflow-x:hidden */
   .menu-drawer {
-    /* even if we dont use the background image, it will take it or inherit it from the top
-        .menu-drawer. We only add properties that are not exit in the top .menu-drawer */
-
-    /* background-image: url('/Orange and Yellow Modern Illustrative Asian Cooking Class Google Classroom Header (2).png'); */
-
-    /* its overwritten by the bottom .is-open class that is 27rem */
-
-    /* width: 27rem; */
-
-    /* to be on the top of the pages in the z-axis toward the user view */
-
-    /* z-index: 9999;
-       position: fixed; */
-
-    /* causing it to stuck at the top hiding the top header */
-
-    /* top: 0;
-       left: 0; */
-
-    /* transform: translateX(-100%); */
-
-    /* min-height: 100vh;
-       padding-top: 1rem; */
-
-    /* background-color: rgb(255, 255, 255); */
-
-    /* box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45); */
-
-    /* transition gradually change from one state to another  */
-
-    /* transition: transform 0.2s ease-in-out; */
-
     transition: width 0.2s ease-in-out;
   }
 
   .is-open {
     width: 27rem;
-
-    /* transform move or change the appearance of an element */
-
-    /* transform: translateX(0%) */
   }
 
   .is-close {
     width: 0.1px;
-
-    /* hide it by making go to -x axis */
-
-    /* transform: translateX(-100%) */
   }
 
   .bg-img-open {
@@ -242,17 +168,7 @@ header {
     background-position: center;
   }
 
-  /* remove the overflow from the x-axis or from the right and left when the page body grows back */
-
-  /* Although we have an excess width it hides it when drawer is open using overflow-x:hidden and it hides
-  the extra spacing at the bottom, and to hide the
-  extra spacing at the bottom or y-axis, we use overflow-y:hidden
-  Also, by removing the height from menu-drawer, we removed the extra spacing in the height like
-  in the desktop display */
-
   .grow {
     overflow-x: hidden;
-
-    /* overflow-y: hidden; */
   }
 }

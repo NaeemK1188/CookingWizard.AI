@@ -1,12 +1,9 @@
-// import { useOutletContext } from 'react-router-dom';
-// import { type OutletContextType } from './NewRecipe';
 import './HomePage.css';
 
 export function HomePage() {
-  // const { isopen } = useOutletContext<OutletContextType>();
+
 
   return (
-    // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
     <div className="bg-img-open">
       <div className="container-page">
         <div className="row justify-center margin-left-home margin-top-home">

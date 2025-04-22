@@ -1,6 +1,4 @@
 import './SignInForm.css';
-// import { type OutletContextType } from './NewRecipe';
-// import { useOutletContext } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { User } from './RegistrationForm';
@@ -12,7 +10,6 @@ export type Auth = {
 };
 
 export function SignInForm() {
-  // const { isopen } = useOutletContext<OutletContextType>();
   const { handleSignIn } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -35,12 +32,9 @@ export function SignInForm() {
         throw new Error(`fetch Error ${responseData.status}`);
       }
 
-      const { user, token } = (await responseData.json()) as Auth; // we took user and token from Auth
-      handleSignIn(user, token); // calling handleSignIn from UserContext.tsx
-      // with update user and token values
-      console.log('signed in user', user);
-      console.log('received token', token);
-      navigate('/'); // navigate to homepage
+      const { user, token } = (await responseData.json()) as Auth;
+      handleSignIn(user, token);
+      navigate('/');
     } catch (error) {
       alert(`Error signing in: ${error}`);
     } finally {
@@ -53,7 +47,6 @@ export function SignInForm() {
       const req = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // body: JSON.stringify({ guest: true }),
         body: JSON.stringify({ username: 'guest', password: '12345678' }),
       };
       const responseData = await fetch('/api/auth/sign-in', req);
@@ -62,8 +55,6 @@ export function SignInForm() {
       }
       const { user, token } = (await responseData.json()) as Auth;
       handleSignIn(user, token);
-      console.log('signed in user', user);
-      console.log('received token', token);
       navigate('/');
     } catch (error) {
       alert(`Error signing in: ${error}`);
@@ -73,7 +64,6 @@ export function SignInForm() {
   }
 
   return (
-    // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
     <div className="bg-img-open">
       <div className="container-SignIn">
         <div className="row">
@@ -94,12 +84,10 @@ export function SignInForm() {
               </label>
             </div>
           </div>
-          {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
           <div>
             <button disabled={isLoading} className="btn-style-register">
               Login
             </button>
-            {/* making the second button not type submit, so its used as a clicked button */}
             <button
               type="button"
               disabled={isLoading}

@@ -5,7 +5,7 @@ type Props = {
   mode: 'sign-up' | 'sign-in';
 };
 
-// unnecessary only to make AuthPage reusable
+// the component is unnecessary only to make AuthPage reusable #optional to be used in app.tsx
 export function AuthPage({ mode }: Props) {
   return (
     <div>

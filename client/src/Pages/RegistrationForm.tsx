@@ -1,37 +1,28 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { type OutletContextType } from './NewRecipe';
-// import { useOutletContext } from 'react-router-dom';
 import './RegistrationForm.css';
 
-// userId: number username: string are from the returned json from sign-up endpoint
-// where the sql query returned userId, username, and createdAt. But we took only username and userId
+
 export type User = {
   userId: number;
   username: string;
 };
 
-// its the auth/sign-up endpoint
 export function RegistrationForm() {
-  // const { isopen } = useOutletContext<OutletContextType>();
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // to navigate like creating a Link tag, but outside jsx
+  const navigate = useNavigate();
 
-  // we are passing an event of DOM element that is Form
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     setIsLoading(true);
-    event.preventDefault(); // prevent default submission
+    event.preventDefault();
     try {
-      // using Formdata() and fromEntries() when we have uncontrolled form
-      // so we dont use values and onChange event on inputs
       const formData = new FormData(event.currentTarget);
       const userData = Object.fromEntries(formData);
-      console.log(userData); // getting what in label and input or all Form entries
-      //{ "username": "Mazrok122", "password": "3333333"}
+      console.log(userData);
       const req = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData), // sending body as a json of username and password
+        body: JSON.stringify(userData),
       };
 
       const responseData = await fetch('/api/auth/sign-up', req);
@@ -39,7 +30,6 @@ export function RegistrationForm() {
         throw new Error(`fetch Error ${responseData.status}`);
       }
       const user = (await responseData.json()) as User;
-      console.log('Registered User:', user);
       alert(
         `Successfully ${user.username} is registered and userId is ${user.userId}`
       );
@@ -52,7 +42,6 @@ export function RegistrationForm() {
   }
 
   return (
-    // unnecessary since the aside bar has been fixed ternary statement. Just use bg-img-open
     <div className="bg-img-open">
       <div className="container-SignIn">
         <div className="row">
@@ -75,7 +64,6 @@ export function RegistrationForm() {
           </div>
           <div className="row">
             <div className="column-full">
-              {/* disabled={isLoading} to prevent user from clicking the button after the first time*/}
               <button disabled={isLoading} className="btn-style-register">
                 Register
               </button>
