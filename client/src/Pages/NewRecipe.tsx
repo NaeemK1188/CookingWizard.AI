@@ -8,15 +8,13 @@ import Markdown from 'react-markdown';
 import { useOutletContext } from 'react-router-dom';
 import { readToken } from '../data';
 
-
 export type OutletContextType = {
-
   set_Recent_Recipes: (recipe: Recipe) => void;
   set_Response_Recipe: (recipe: Recipe) => void;
 };
 
 export function NewRecipe() {
-  const {set_Recent_Recipes} = useOutletContext<OutletContextType>();
+  const { set_Recent_Recipes } = useOutletContext<OutletContextType>();
   const [requestIngredient, setRequestIngredient] = useState('');
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
@@ -76,11 +74,9 @@ export function NewRecipe() {
   }
 
   function handleClear() {
-
     setResponseRecipe(null);
     setRequestIngredient('');
     setIsSaved(false);
-
   }
 
   async function handleSave() {
@@ -100,12 +96,9 @@ export function NewRecipe() {
           responseInstruction: responseRecipe?.recipe,
           imgURL: responseRecipe?.imgURL,
         }),
-
       };
 
       const response1 = await fetch('/api/recipes', request1);
-      const recipe = (await response1.json()) as Recipe;
-
 
       if (!response1.ok) {
         throw new Error(`fetch ERROR ${response1.status}`);
@@ -114,7 +107,6 @@ export function NewRecipe() {
     } catch (error) {
       alert(error);
     }
-
   }
 
   if (isLoading) {
@@ -128,8 +120,6 @@ export function NewRecipe() {
       </p>
     );
   }
-
-
 
   return (
     <>
@@ -199,7 +189,10 @@ export function NewRecipe() {
       )}
       {isMobile && (
         <div className="phone-bg-image">
-          <div className={responseRecipe ? 'phone-container add-bg' : 'phone-margin-top'}>
+          <div
+            className={
+              responseRecipe ? 'phone-container add-bg' : 'phone-margin-top'
+            }>
             <div>
               <div className="phone-row">
                 {isSaved && (
