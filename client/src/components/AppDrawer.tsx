@@ -240,7 +240,7 @@ export function AppDrawer() {
                   {!user && (
                     <>
                       {/* "auth/sign-in" like in the path property in app.tsx for SignInForm.tsx
-                    we are using navigate because its button not a text with text use Link tag */}
+                    we are using navigate because its button not a text, where with text, we use Link tag */}
                       <button
                         className="btn-style"
                         onClick={() => {

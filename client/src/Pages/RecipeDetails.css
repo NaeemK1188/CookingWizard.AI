@@ -39,4 +39,8 @@
     aspect-ratio: 430 / 932;
     min-height: 100vh;
   }
+
+  .add-bg {
+    background-color: antiquewhite;
+  }
 }

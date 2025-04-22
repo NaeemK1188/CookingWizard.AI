@@ -1,5 +1,5 @@
 import './NewRecipe.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { GiCampCookingPot } from 'react-icons/gi';
 import { TfiSave } from 'react-icons/tfi';
@@ -31,10 +31,36 @@ export function NewRecipe() {
   const [responseRecipe, setResponseRecipe] = useState<Recipe | null>();
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   // const [url, setUrl] = useState("");
   // const [image, setImage] = useState("");
   // const [error, setError] = useState<unknown>();
   let recipeText;
+
+  // as soon as the component loads on screen, jsx check if the window is size 480 or not and
+  // then update the state and trigger the re-render on screen(reflect update on screen)
+  useEffect(() => {
+    function handleResize() {
+      if (window.innerWidth <= 480) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    if (window.innerWidth <= 480) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+
+    // returns creates an arrow function and insides it it calls remove eventlistener from window
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   async function handleSubmit() {
     setIsLoading(true);
@@ -174,76 +200,157 @@ export function NewRecipe() {
 
   return (
     // <div className={isopen === true ? 'bg-img-open' : 'bg-img-close'}>
-    <div className="bg-img-open">
-      {/* <div className="bg-img-close"> */}
-      <div className="container-new-recipe">
-        <div className="d-flex flex-dir margin-top-new-recipe ">
-          <div className="row">
-            {isSaved && (
-              <textarea
-                placeholder="New Recipe has been added"
-                className="popup"
-              />
-            )}
-            {/* recipeText is showing the response or isLoading or the default text */}
-            {!responseRecipe ? (
-              <div className="column-full">{recipeText} </div>
-            ) : (
-              <div className="column-half">{recipeText}</div>
-            )}
-            <div className="column-half">
-              {responseRecipe && (
-                <img
-                  className="img-recipe"
-                  src={responseRecipe?.imgURL}
-                  alt="recipe image"
-                  style={{ borderRadius: '10px' }}
-                />
-              )}
-            </div>
-            {/* <a href={responseRecipe?.imageUrl} target="_blank">
-                  {url}
-                </a> */}
-          </div>
-          <div>
-            <div className="row">
-              {/*  column-full is acting as a container*/}
-              <div className="column-full align-text">
-                {/* textarea is acting as a row */}
-                <div>
-                  {/* the value property is from what user enter in the textarea */}
+    <>
+      {!isMobile && (
+        <div className="bg-img-open">
+          {/* <div className="bg-img-close"> */}
+          <div className="container-new-recipe">
+            <div className="d-flex flex-dir margin-top-new-recipe ">
+              <div className="row">
+                {isSaved && (
                   <textarea
-                    name="request"
-                    cols={70}
-                    rows={6}
-                    placeholder="what do you have in pantry ?"
-                    className="request-container"
-                    value={requestIngredient}
-                    onChange={(event) =>
-                      setRequestIngredient(event.target.value)
-                    }
+                    placeholder="New Recipe has been added"
+                    className="popup"
                   />
+                )}
+                {/* recipeText is showing the response or isLoading or the default text */}
+                {!responseRecipe ? (
+                  <div className="column-full">{recipeText} </div>
+                ) : (
+                  <div className="column-half">{recipeText}</div>
+                )}
+                <div className="column-half">
+                  {responseRecipe && (
+                    <img
+                      className="img-recipe"
+                      src={responseRecipe?.imgURL}
+                      alt="recipe image"
+                      style={{ borderRadius: '10px' }}
+                    />
+                  )}
                 </div>
-                {/* div is acting as a row and has 4 columns icons */}
-                <div>
-                  <GiCampCookingPot
-                    className="add-margin-new-recipe"
-                    onClick={handleSubmit}
-                  />
-                  <RiDeleteBin6Line
-                    className="add-margin-new-recipe"
-                    onClick={handleClear}
-                  />
-                  <TfiSave
-                    className="add-margin-new-recipe"
-                    onClick={handleSave}
-                  />
+                {/* <a href={responseRecipe?.imageUrl} target="_blank">
+                    {url}
+                  </a> */}
+              </div>
+              <div>
+                <div className="row">
+                  {/*  column-full is acting as a container*/}
+                  <div className="column-full align-text">
+                    {/* textarea is acting as a row */}
+                    <div>
+                      {/* the value property is from what user enter in the textarea */}
+                      <textarea
+                        name="request"
+                        cols={70}
+                        rows={6}
+                        placeholder="what do you have in pantry ?"
+                        className="request-container"
+                        value={requestIngredient}
+                        onChange={(event) =>
+                          setRequestIngredient(event.target.value)
+                        }
+                      />
+                    </div>
+                    {/* div is acting as a row and has 4 columns icons */}
+                    <div>
+                      <GiCampCookingPot
+                        className="add-margin-new-recipe"
+                        onClick={handleSubmit}
+                      />
+                      <RiDeleteBin6Line
+                        className="add-margin-new-recipe"
+                        onClick={handleClear}
+                      />
+                      <TfiSave
+                        className="add-margin-new-recipe"
+                        onClick={handleSave}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+      {/* change the classes names in phone mode to avoid malfunction or weird behavior that
+      is mixing the desktop view with mobile */}
+      {isMobile && (
+        <div className="phone-bg-image">
+          <div
+            className={
+              responseRecipe ? 'phone-container add-bg' : 'phone-margin-top'
+            }>
+            <div>
+              <div className="phone-row">
+                {isSaved && (
+                  <textarea
+                    placeholder="New Recipe has been added"
+                    className="popup"
+                  />
+                )}
+                {/* recipeText is showing the response or isLoading or the default text */}
+                {!responseRecipe ? (
+                  <div className="phone-col-full">{recipeText} </div>
+                ) : (
+                  <div className="phone-col-half">{recipeText}</div>
+                )}
+                <div className="phone-col-half">
+                  {responseRecipe && (
+                    <img
+                      className="phone-img-recipe"
+                      src={responseRecipe?.imgURL}
+                      alt="recipe image"
+                      style={{ borderRadius: '10px' }}
+                    />
+                  )}
+                </div>
+              </div>
+              <div>
+                <div className="phone-row">
+                  {/*  column-full is acting as a container*/}
+                  <div className="phone-col-full align-text">
+                    {/* textarea is acting as a row */}
+                    <div>
+                      {/* the value property is from what user enter in the textarea */}
+                      <textarea
+                        name="request"
+                        cols={45}
+                        rows={6}
+                        placeholder="what do you have in pantry ?"
+                        className="request-container"
+                        value={requestIngredient}
+                        onChange={(event) =>
+                          setRequestIngredient(event.target.value)
+                        }
+                      />
+                    </div>
+                    {/* div is acting as a row and has 4 columns icons */}
+                    <div>
+                      <GiCampCookingPot
+                        className="add-margin-new-recipe"
+                        onClick={handleSubmit}
+                        size={'30px'}
+                      />
+                      <RiDeleteBin6Line
+                        className="add-margin-new-recipe"
+                        onClick={handleClear}
+                        size={'30px'}
+                      />
+                      <TfiSave
+                        className="add-margin-new-recipe"
+                        onClick={handleSave}
+                        size={'27px'}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

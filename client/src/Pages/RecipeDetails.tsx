@@ -161,7 +161,7 @@ export function RecipeDetails() {
       {/* here component for phone with different structure do the same thing for new-recipe */}
       {isMobile && (
         <div className="phone-menu-drawer">
-          <div className="phone-container">
+          <div className="phone-container add-bg">
             {recipeDetail.userId === user?.userId && (
               <>
                 <h1 className="phone-font-recipes">Recipes:</h1>
