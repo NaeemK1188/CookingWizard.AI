@@ -1,1 +1,1 @@
-🧠 
+🧠 CookingWizard.AI
