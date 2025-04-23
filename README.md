@@ -1,1 +1,5 @@
-![](client/public/pan-resized-removebg-preview.png)CookingWizard.AI
+<div>
+  <img src="client/public/pan-resized-removebg-preview.png"/>
+  <span>CookingWizard.AI</span>
+</div>
+
