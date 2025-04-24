@@ -60,4 +60,4 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 🔍 **Search & Filter** - User can search through saved recipes
 
 ## 🛠️ Tech Stack
-  - [![](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter)](https://jupyter.org/try)
+  - [![](https://img.shields.io/badge/React-black?style=for-the-badge&logo=React)](https://react.dev/)
