@@ -2,5 +2,35 @@
 
  CookingWizard.AI is a **full-stack web application** designed to assist home cooks in creating personalized recipes from available ingriedents they have in the pantry. Levareging AI algorithms, the application generates unique recipes tailored to user inputs , enhancing creativity. Additionally, the application provides secure space to users to store recipes in thier account, preserving recent searches and allowing users to reuse the same pormpts to generate different recipes or add new ingredients. 
 
-##🎬 Live Demo
+## 🎬 Live Demo
 Check out the live version:[CookingWizard.AI](http://ec2-3-148-61-17.us-east-2.compute.amazonaws.com/new-recipe)
+
+## How it works
+
+---
+
+Explore the **CookingWizard.AI** and begin your cooking journey in just few steps!!! 
+
+### 🍚 Access the Application
+ - Click the demo link above.
+ - Sign in as a guest or sign-up.
+
+
+### 🍛 Navigate to the Dashboard
+  - Click the three bars icon on the top left corner to open the side drawer.
+  - Click NewRecipe to add your prompt for the ingredients.
+
+### 🍣 Save & Preserve Recipes
+  - Click the save Icon under the prompt box to save your recipe with generated image from AI.
+
+### 🍝 Discover Your Generated Recipes
+  - Navigate to the dashboard by clicking again on the three bars icon
+  - Click Your Recipes, then click again on the recipe title to view generated recipe with a generic image from AI
+
+### 🍱 Refresh your Pantry 
+  - Navigate to your Recipes by navigating to your recipes
+  - Click the trash icon alongside the recipe's title to delete the generated recipe
+
+**Start Cooking like pro and create your personalized recipes** 🍜
+
+
