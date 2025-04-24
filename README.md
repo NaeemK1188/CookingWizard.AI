@@ -61,3 +61,7 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 
 ## 🛠️ Tech Stack
   - [![](https://img.shields.io/badge/React-black?style=for-the-badge&logo=React)](https://react.dev/)
+  - [![](https://img.shields.io/badge/Node.js-green?style=for-the-badge&logo=Node.js&logoColor=white)](https://nodejs.org/en)
+  - [![](https://img.shields.io/badge/express.js-gray?style=for-the-badge&logo=express)](https://expressjs.com/)
+  - [![](https://img.shields.io/badge/postgresql-000080?style=for-the-badge&logo=Postgresql&logoColor=white)](https://www.postgresql.org/)
+  - [![](https://img.shields.io/badge/typescript-blue?style=for-the-badge&logo=TypeScript&logoColor=white)](https://www.typescriptlang.org/)
