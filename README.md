@@ -102,5 +102,5 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 
 ## 🔬 Feature Requests & Bug Reports
 
-  - [Request a Feature](https://github.com/NaeemK1188/CookingWizard.AI/issues/new?template=new-feature.md) - [ Submit a Design Suggestion ](https://github.com/ruqaiyae/MemorEase/issues/new?template=design-update.md) - [Report a Bug](https://github.com/ruqaiyae/MemorEase/issues/new?template=bug-fix.md)
+  - [Request a Feature](https://github.com/NaeemK1188/CookingWizard.AI/issues/new?template=new-feature.md) - [ Submit a Design Suggestion ](https://github.com/NaeemK1188/CookingWizard.AI/issues/new?template=design-update.md) - [Report a Bug](https://github.com/NaeemK1188/CookingWizard.AI/issues/new?template=bug-fix.md)
 
