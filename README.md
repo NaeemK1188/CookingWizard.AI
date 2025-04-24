@@ -55,8 +55,9 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 
 🔧 **Edit Recipe Title**- User can update the recipe name
 
-🍜 **Upload Recipe Image and Live Video** - User can upload thier personalized images and live cooking
+📹 **Upload Recipe Image and Live Video** - User can upload thier personalized images and live cooking
 
+🔍 **Search & Filter** - User can search through saved recipes
 
-
-
+## 🛠️ Tech Stack
+  - [![](https://img.shields.io/badge/Made%20with-Jupyter-orange?style=for-the-badge&logo=Jupyter)](https://jupyter.org/try)
