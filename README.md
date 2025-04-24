@@ -83,9 +83,21 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 ## 🔧 Installation & Setup
 
 ### Clone The Repository 
-  `git clone https://github.com/ruqaiyae/RecipeWizard.AI.git`
-  
-  `cd RecipeWizard.AI`
+  ```bash
+  git clone https://github.com/ruqaiyae/RecipeWizard.AI.git
+  cd RecipeWizard.AI
+  ```
+### Install dependencies
+  ```bash
+  npm install
+  ```
+### Set up the Database
+  - Ensure PostgreSQL is installed and running.
+  - Create `.env` file and configure database credentials.
 
+### Run the Development Server
+```bash
+  npm run dev
+```
 
 
