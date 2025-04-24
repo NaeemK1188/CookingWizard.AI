@@ -100,4 +100,7 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
   npm run dev
 ```
 
+## 🔬 Feature Requests & Bug Reports
+
+  - [Request a Feature](https://github.com/NaeemK1188/RecipeWizard.AI/issues/new?template=new-feature.md)
 
