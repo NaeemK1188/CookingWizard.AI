@@ -47,8 +47,15 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 
 
 
-
 ## 🚀 Future Enhancements
+
+🔰 **Google Map**- Places where user can purchase ingredients
+
+💻 **Generate Short Videos**- User can follow live cooking guide
+
+🔧 **Edit Recipe Title**- User can update the recipe name
+
+🍜 **Upload Recipe Image and Live Video** - User can upload thier personalized images and live cooking
 
 
 
