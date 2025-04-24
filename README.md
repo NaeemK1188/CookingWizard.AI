@@ -80,6 +80,12 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
   - `vite` - Build tool for front-end local development
   - `react-markdown` - text formatting used with AI text generation
 
-## Installation & Setup
+## 🔧 Installation & Setup
+
+### Clone The Repository 
+  `git clone https://github.com/ruqaiyae/RecipeWizard.AI.git`
+  
+  `cd RecipeWizard.AI`
+
 
 
