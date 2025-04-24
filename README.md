@@ -65,3 +65,21 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
   - [![](https://img.shields.io/badge/express.js-gray?style=for-the-badge&logo=express)](https://expressjs.com/)
   - [![](https://img.shields.io/badge/postgresql-000080?style=for-the-badge&logo=Postgresql&logoColor=white)](https://www.postgresql.org/)
   - [![](https://img.shields.io/badge/typescript-blue?style=for-the-badge&logo=TypeScript&logoColor=white)](https://www.typescriptlang.org/)
+
+## 📦 Packages Used
+
+**Back-end**
+  - `pg` - PostgreSQL client for Node.js
+  - `argon` - Secure password hashing
+  - `jsonwebtoken` - Authentication using jwt
+  - `dotenv` - Environment variable management
+  - `open-ai` - Text and image generation
+
+**Front-end**
+  - `react-router-dom` - for client-side routing
+  - `vite` - Build tool for front-end local development
+  - `react-markdown` - text formatting used with AI text generation
+
+## Installation & Setup
+
+
