@@ -107,5 +107,5 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
   - [Report a Bug](https://github.com/NaeemK1188/CookingWizard.AI/issues/new?template=bug-fix.md)
     
 ## 📩 Contact
-Email:[noah.albirk@gmail.com]      |      [Linkdin](https://www.linkedin.com/in/naeem-khayat-albirkdar/)
+Email:noah.albirk@gmail.com      |      [Linkdin](https://www.linkedin.com/in/naeem-khayat-albirkdar/)
 
