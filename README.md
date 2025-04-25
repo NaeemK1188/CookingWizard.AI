@@ -8,29 +8,29 @@ Check out the live version:[CookingWizard.AI](http://ec2-3-148-61-17.us-east-2.c
 ## How it works
 ---
 
-Explore the **CookingWizard.AI** and begin your cooking journey in just few steps!!! 
+Explore the **CookingWizard.AI** app and begin your cooking journey in just few steps!!! 
 
 ### 🍚 Access the Application
  - Click the demo link above.
- - Sign in as a guest or sign-up.
+ - Sign in as a guest or sign up as a new user.
 
 
 ### 🍛 Navigate to the Dashboard
-  - Click the three bars icon on the top left corner to open the side drawer.
-  - Click NewRecipe to add your prompt for the ingredients.
+  - Click the three-bar icon on the top left corner to open the side drawer.
+  - Click New Recipe to add your prompt as ingredients.
 
 ### 🍣 Save & Preserve Recipes
-  - Click the save Icon under the prompt box to save your recipe with generated image from AI.
+  - Click the save icon under the prompt box to save your recipe with generated image from AI.
 
 ### 🍝 Discover Your Generated Recipes
-  - Navigate to the dashboard by clicking again on the three bars icon
-  - Click Your Recipes, then click again on the recipe title to view generated recipe with a generic image from AI
+  - Navigate to the dashboard by clicking again on the three-bar icon
+  - Click Your Recipes, then click on the recipe's title to view generated recipe with a generic image from AI
 
 ### 🍱 Refresh your Pantry 
   - Navigate to your Recipes by navigating to your recipes
-  - Click the trash icon alongside the recipe's title to delete the generated recipe
+  - Click the trash icon next to the recipe's title to delete the generated recipe
 
-**Start Cooking like pro and create your personalized recipes** 🍜
+**Start cooking like pro and create your personalized recipes** 🍜
 
 
 ## ✨ Features
@@ -49,13 +49,13 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 
 ## 🚀 Future Enhancements
 
-🔰 **Google Map**- Places where user can purchase ingredients
+🔰 **Google Maps Integration**- Places where user can purchase ingredients
 
-💻 **Generate Short Videos**- User can follow live cooking guide
+💻 **Generate Short Videos**- Users can follow live cooking guides
 
-🔧 **Edit Recipe Title**- User can update the recipe name
+🔧 **Edit Recipe Title**- Users can update recipe's title
 
-📹 **Upload Recipe Image and Live Video** - User can upload thier personalized images and live cooking
+📹 **Upload Recipe Image and Live Video** - Users can upload thier personalized images and live cooking sessions
 
 🔍 **Search & Filter** - User can search through saved recipes
 
@@ -70,15 +70,15 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
 
 **Back-end**
   - `pg` - PostgreSQL client for Node.js
-  - `argon` - Secure password hashing
+  - `argon2` - Secure password hashing
   - `jsonwebtoken` - Authentication using jwt
   - `dotenv` - Environment variable management
-  - `open-ai` - Text and image generation
+  - `openai` - Text and image generation
 
 **Front-end**
-  - `react-router-dom` - for client-side routing
+  - `react-router-dom` - Client-side routing
   - `vite` - Build tool for front-end local development
-  - `react-markdown` - text formatting used with AI text generation
+  - `react-markdown` - Text formatting used with AI text generation
 
 ## 🔧 Installation & Setup
 
@@ -107,5 +107,5 @@ Explore the **CookingWizard.AI** and begin your cooking journey in just few step
   - [Report a Bug](https://github.com/NaeemK1188/CookingWizard.AI/issues/new?template=bug-fix.md)
     
 ## 📩 Contact
-Email:noah.albirk@gmail.com      |      [Linkedin](https://www.linkedin.com/in/naeem-khayat-albirkdar/)
+Email:noah.albirk@gmail.com      |      [Linkedln](https://www.linkedin.com/in/naeem-khayat-albirkdar/)
 
